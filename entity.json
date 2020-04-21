@@ -31,7 +31,7 @@
             "required": [
                 "description"
             ],
-            "title": "entity"
+            "title": "Entity"
         },
         "description": {
             "type": "object",
@@ -79,7 +79,6 @@
         "event": {
             "title": "event",
             "type": "object",
-            "patternProperties": {},
             "properties": {
                 "add": { "$ref": "#/definitions/event_add" },
                 "remove": { "$ref": "#/definitions/event_remove" },
@@ -139,11 +138,11 @@
             "allOf": [
                 {
                     "if": { "properties": { "test": { "$ref": "#/definitions/library/filters/tests/integer" } } },
-                    "then": { "properties": { "value": { "type": "string", "pattern": "^[0-9]*$", "default": "0" } } }
+                    "then": { "properties": { "value": { "type": "integer", "patternwas": "^[0-9]*$", "default": 0 } } }
                 },
                 {
                     "if": { "properties": { "test": { "$ref": "#/definitions/library/filters/tests/decimal" } } },
-                    "then": { "properties": { "value": { "type": "string", "pattern": "^[+-]?([0-9]*[.])?[0-9]*$", "default": "0.0" } } }
+                    "then": { "properties": { "value": { "type": "number", "patternwas": "^[+-]?([0-9]*[.])?[0-9]*$", "default": 0.0 } } }
                 },
                 {
                     "if": { "properties": { "test": { "$ref": "#/definitions/library/filters/tests/boolean" } } },
@@ -1939,301 +1938,906 @@
             },
             "components": {
                 "properties": {
-                    "minecraft.behavior.hide":                                     { "type": "object" },
-                    "minecraft.behavior.move_to_poi":                              { "type": "object" },
-                    "minecraft.behavior.scared":                                   { "type": "object" },
-                    "minecraft.behavior.work":                                     { "type": "object" },
-                    "minecraft:behavior.avoid_mob_type":                           { "type": "object" },
-                    "minecraft:behavior.beg":                                      { "type": "object" },
-                    "minecraft:behavior.break_door":                               { "type": "object" },
-                    "minecraft:behavior.breed":                                    { "type": "object" },
-                    "minecraft:behavior.celebrate":                                { "type": "object" },
-                    "minecraft:behavior.charge_attack":                            { "type": "object" },
-                    "minecraft:behavior.charge_held_item":                         { "type": "object" },
-                    "minecraft:behavior.circle_around_anchor":                     { "type": "object" },
-                    "minecraft:behavior.controlled_by_player":                     { "type": "object" },
-                    "minecraft:behavior.defend_trusted_target":                    { "type": "object" },
-                    "minecraft:behavior.defend_village_target":                    { "type": "object" },
-                    "minecraft:behavior.delayed_attack":                           { "type": "object" },
-                    "minecraft:behavior.door_interact":                            { "type": "object" },
-                    "minecraft:behavior.dragonchargeplayer":                       { "type": "object" },
-                    "minecraft:behavior.dragondeath":                              { "type": "object" },
-                    "minecraft:behavior.dragonflaming":                            { "type": "object" },
-                    "minecraft:behavior.dragonholdingpattern":                     { "type": "object" },
-                    "minecraft:behavior.dragonlanding":                            { "type": "object" },
-                    "minecraft:behavior.dragonscanning":                           { "type": "object" },
-                    "minecraft:behavior.dragonstrafeplayer":                       { "type": "object" },
-                    "minecraft:behavior.dragontakeoff":                            { "type": "object" },
-                    "minecraft:behavior.drink_potion":                             { "type": "object" },
-                    "minecraft:behavior.drop_item_for":                            { "type": "object" },
-                    "minecraft:behavior.eat_block":                                { "type": "object" },
-                    "minecraft:behavior.eat_carried_item":                         { "type": "object" },
-                    "minecraft:behavior.enderman_leave_block":                     { "type": "object" },
-                    "minecraft:behavior.enderman_take_block":                      { "type": "object" },
-                    "minecraft:behavior.explore_outskirts":                        { "type": "object" },
-                    "minecraft:behavior.find_cover":                               { "type": "object" },
-                    "minecraft:behavior.find_mount":                               { "type": "object" },
-                    "minecraft:behavior.find_underwater_treasure":                 { "type": "object" },
-                    "minecraft:behavior.flee_sun":                                 { "type": "object" },
-                    "minecraft:behavior.float":                                    { "type": "object" },
-                    "minecraft:behavior.float_wander":                             { "type": "object" },
-                    "minecraft:behavior.follow_caravan":                           { "type": "object" },
-                    "minecraft:behavior.follow_mob":                               { "type": "object" },
-                    "minecraft:behavior.follow_owner":                             { "type": "object" },
-                    "minecraft:behavior.follow_parent":                            { "type": "object" },
-                    "minecraft:behavior.follow_target_captain":                    { "type": "object" },
-                    "minecraft:behavior.go_home":                                  { "type": "object" },
-                    "minecraft:behavior.guardian_attack":                          { "type": "object" },
-                    "minecraft:behavior.harvest_farm_block":                       { "type": "object" },
-                    "minecraft:behavior.hold_ground":                              { "type": "object" },
-                    "minecraft:behavior.hurt_by_target":                           { "type": "object" },
-                    "minecraft:behavior.inspect_bookshelf":                        { "type": "object" },
-                    "minecraft:behavior.knockback_roar":                           { "type": "object" },
-                    "minecraft:behavior.lay_down":                                 { "type": "object" },
-                    "minecraft:behavior.lay_egg":                                  { "type": "object" },
-                    "minecraft:behavior.leap_at_target":                           { "type": "object" },
-                    "minecraft:behavior.look_at_entity":                           { "type": "object" },
-                    "minecraft:behavior.look_at_player":                           { "type": "object" },
-                    "minecraft:behavior.look_at_target":                           { "type": "object" },
-                    "minecraft:behavior.look_at_trading_player":                   { "type": "object" },
-                    "minecraft:behavior.make_love":                                { "type": "object" },
-                    "minecraft:behavior.melee_attack":                             { "type": "object" },
-                    "minecraft:behavior.mingle":                                   { "type": "object" },
-                    "minecraft:behavior.mount_pathing":                            { "type": "object" },
-                    "minecraft:behavior.move_indoors":                             { "type": "object" },
-                    "minecraft:behavior.move_through_village":                     { "type": "object" },
-                    "minecraft:behavior.move_to_land":                             { "type": "object" },
-                    "minecraft:behavior.move_to_random_block":                     { "type": "object" },
-                    "minecraft:behavior.move_to_village":                          { "type": "object" },
-                    "minecraft:behavior.move_to_water":                            { "type": "object" },
-                    "minecraft:behavior.move_towards_restriction":                 { "type": "object" },
-                    "minecraft:behavior.move_towards_target":                      { "type": "object" },
-                    "minecraft:behavior.nap":                                      { "type": "object" },
-                    "minecraft:behavior.nearest_attackable_target":                { "type": "object" },
-                    "minecraft:behavior.nearest_prioritized_attackable_target":    { "type": "object" },
-                    "minecraft:behavior.ocelot_sit_on_block":                      { "type": "object" },
-                    "minecraft:behavior.ocelotattack":                             { "type": "object" },
-                    "minecraft:behavior.offer_flower":                             { "type": "object" },
-                    "minecraft:behavior.open_door":                                { "type": "object" },
-                    "minecraft:behavior.owner_hurt_by_target":                     { "type": "object" },
-                    "minecraft:behavior.owner_hurt_target":                        { "type": "object" },
-                    "minecraft:behavior.panic":                                    { "type": "object" },
-                    "minecraft:behavior.peek":                                     { "type": "object" },
-                    "minecraft:behavior.pet_sleep_with_owner":                     { "type": "object" },
-                    "minecraft:behavior.pickup_items":                             { "type": "object" },
-                    "minecraft:behavior.play":                                     { "type": "object" },
-                    "minecraft:behavior.player_ride_tamed":                        { "type": "object" },
-                    "minecraft:behavior.raid_garden":                              { "type": "object" },
-                    "minecraft:behavior.random_breach":                            { "type": "object" },
-                    "minecraft:behavior.random_fly":                               { "type": "object" },
-                    "minecraft:behavior.random_hover":                             { "type": "object" },
-                    "minecraft:behavior.random_look_around":                       { "type": "object" },
-                    "minecraft:behavior.random_look_around_and_sit":               { "type": "object" },
-                    "minecraft:behavior.random_sitting":                           { "type": "object" },
-                    "minecraft:behavior.random_stroll":                            { "type": "object" },
-                    "minecraft:behavior.random_swim":                              { "type": "object" },
-                    "minecraft:behavior.ranged_attack":                            { "type": "object" },
-                    "minecraft:behavior.receive_love":                             { "type": "object" },
-                    "minecraft:behavior.restrict_open_door":                       { "type": "object" },
-                    "minecraft:behavior.restrict_sun":                             { "type": "object" },
-                    "minecraft:behavior.roll":                                     { "type": "object" },
-                    "minecraft:behavior.run_around_like_crazy":                    { "type": "object" },
-                    "minecraft:behavior.send_event":                               { "type": "object" },
-                    "minecraft:behavior.share_items":                              { "type": "object" },
-                    "minecraft:behavior.silverfish_merge_with_stone":              { "type": "object" },
-                    "minecraft:behavior.silverfish_wake_up_friends":               { "type": "object" },
-                    "minecraft:behavior.skeleton_horse_trap":                      { "type": "object" },
-                    "minecraft:behavior.sleep":                                    { "type": "object" },
-                    "minecraft:behavior.slime_attack":                             { "type": "object" },
-                    "minecraft:behavior.slime_float":                              { "type": "object" },
-                    "minecraft:behavior.slime_keep_on_jumping":                    { "type": "object" },
-                    "minecraft:behavior.slime_random_direction":                   { "type": "object" },
-                    "minecraft:behavior.snacking":                                 { "type": "object" },
-                    "minecraft:behavior.sneeze":                                   { "type": "object" },
-                    "minecraft:behavior.squid_dive":                               { "type": "object" },
-                    "minecraft:behavior.squid_flee":                               { "type": "object" },
-                    "minecraft:behavior.squid_idle":                               { "type": "object" },
-                    "minecraft:behavior.squid_move_away_from_ground":              { "type": "object" },
-                    "minecraft:behavior.squid_out_of_water":                       { "type": "object" },
-                    "minecraft:behavior.stalk_and_pounce_on_target":               { "type": "object" },
-                    "minecraft:behavior.stay_while_sitting":                       { "type": "object" },
-                    "minecraft:behavior.stomp_attack":                             { "type": "object" },
-                    "minecraft:behavior.stomp_turtle_egg":                         { "type": "object" },
-                    "minecraft:behavior.stroll_towards_village":                   { "type": "object" },
-                    "minecraft:behavior.summon_entity":                            { "type": "object" },
-                    "minecraft:behavior.swell":                                    { "type": "object" },
-                    "minecraft:behavior.swim_idle":                                { "type": "object" },
-                    "minecraft:behavior.swim_wander":                              { "type": "object" },
-                    "minecraft:behavior.swim_with_entity":                         { "type": "object" },
-                    "minecraft:behavior.swoop_attack":                             { "type": "object" },
-                    "minecraft:behavior.take_flower":                              { "type": "object" },
-                    "minecraft:behavior.tempt":                                    { "type": "object" },
-                    "minecraft:behavior.trade_interest":                           { "type": "object" },
-                    "minecraft:behavior.trade_with_player":                        { "type": "object" },
-                    "minecraft:behavior.vex_copy_owner_target":                    { "type": "object" },
-                    "minecraft:behavior.vex_random_move":                          { "type": "object" },
-                    "minecraft:behavior.wither_random_attack_pos_goal":            { "type": "object" },
-                    "minecraft:behavior.wither_target_highest_damage":             { "type": "object" },
-                    "minecraft:addrider":                                          { "type": "object" },
-                    "minecraft:admire_item":                                       { "type": "object" },
-                    "minecraft:ageable":                                           { "type": "object" },
-                    "minecraft:ambient_sound_interval":                            { "type": "object" },
-                    "minecraft:angry":                                             { "type": "object" },
-                    "minecraft:area_attack":                                       { "type": "object" },
-                    "minecraft:attack":                                            { "type": "object" },
-                    "minecraft:attack_cooldown":                                   { "type": "object" },
-                    "minecraft:attack_damage":                                     { "type": "object" },
-                    "minecraft:balloonable":                                       { "type": "object" },
-                    "minecraft:barter":                                            { "type": "object" },
-                    "minecraft:block_sensor":                                      { "type": "object" },
-                    "minecraft:boostable":                                         { "type": "object" },
-                    "minecraft:boss":                                              { "type": "object" },
-                    "minecraft:break_blocks":                                      { "type": "object" },
-                    "minecraft:breathable":                                        { "type": "object" },
-                    "minecraft:breedable":                                         { "type": "object" },
-                    "minecraft:bribeable":                                         { "type": "object" },
-                    "minecraft:burns_in_daylight":                                 { "type": "object" },
-                    "minecraft:can_climb":                                         { "type": "object" },
-                    "minecraft:can_fly":                                           { "type": "object" },
-                    "minecraft:can_power_jump":                                    { "type": "object" },
-                    "minecraft:celebrate_hunt":                                    { "type": "object" },
-                    "minecraft:collision_box":                                     { "type": "object" },
-                    "minecraft:color":                                             { "type": "object" },
-                    "minecraft:color2":                                            { "type": "object" },
-                    "minecraft:custom_hit_test":                                   { "type": "object" },
-                    "minecraft:damage_over_time":                                  { "type": "object" },
-                    "minecraft:damage_sensor":                                     { "type": "object" },
-                    "minecraft:default_look_angle":                                { "type": "object" },
-                    "minecraft:despawn":                                           { "type": "object" },
-                    "minecraft:dweller":                                           { "type": "object" },
-                    "minecraft:economy_trade_table":                               { "type": "object" },
-                    "minecraft:environment_sensor":                                { "type": "object" },
-                    "minecraft:entity_sensor":                                     { "type": "object" },
-                    "minecraft:equipment":                                         { "type": "object" },
-                    "minecraft:equippable":                                        { "type": "object" },
-                    "minecraft:experience_reward":                                 { "type": "object" },
-                    "minecraft:explode":                                           { "type": "object" },
-                    "minecraft:fire_immune":                                       { "type": "object" },
-                    "minecraft:floats_in_liquid":                                  { "type": "object" },
-                    "minecraft:flocking":                                          { "type": "object" },
-                    "minecraft:flying_speed":                                      { "type": "object" },
-                    "minecraft:follow_range":                                      { "type": "object" },
-                    "minecraft:foot_size":                                         { "type": "object" },
-                    "minecraft:friction_modifier":                                 { "type": "object" },
-                    "minecraft:genetics":                                          { "type": "object" },
-                    "minecraft:giveable":                                          { "type": "object" },
-                    "minecraft:ground_offset":                                     { "type": "object" },
-                    "minecraft:group_size":                                        { "type": "object" },
-                    "minecraft:grows_crop":                                        { "type": "object" },
-                    "minecraft:healable":                                          { "type": "object" },
-                    "minecraft:health":                                            { "type": "object" },
-                    "minecraft:hide":                                              { "type": "object" },
-                    "minecraft:home":                                              { "type": "object" },
-                    "minecraft:horse.jump_strength":                               { "type": "object" },
-                    "minecraft:hurt_on_condition":                                 { "type": "object" },
-                    "minecraft:input_ground_controlled":                           { "type": "object" },
-                    "minecraft:insomnia":                                          { "type": "object" },
-                    "minecraft:interact":                                          { "type": "object" },
-                    "minecraft:inventory":                                         { "type": "object" },
-                    "minecraft:is_baby":                                           { "type": "object" },
-                    "minecraft:is_charged":                                        { "type": "object" },
-                    "minecraft:is_chested":                                        { "type": "object" },
-                    "minecraft:is_dyeable":                                        { "type": "object" },
-                    "minecraft:is_hidden_when_invisible":                          { "type": "object" },
-                    "minecraft:is_ignited":                                        { "type": "object" },
-                    "minecraft:is_illager_captain":                                { "type": "object" },
-                    "minecraft:is_saddled":                                        { "type": "object" },
-                    "minecraft:is_shaking":                                        { "type": "object" },
-                    "minecraft:is_sheared":                                        { "type": "object" },
-                    "minecraft:is_stackable":                                      { "type": "object" },
-                    "minecraft:is_stunned":                                        { "type": "object" },
-                    "minecraft:is_tamed":                                          { "type": "object" },
-                    "minecraft:item_controllable":                                 { "type": "object" },
-                    "minecraft:item_hopper":                                       { "type": "object" },
-                    "minecraft:jump.dynamic":                                      { "type": "object" },
-                    "minecraft:jump.static":                                       { "type": "object" },
-                    "minecraft:knockback_resistance":                              { "type": "object" },
-                    "minecraft:lava_movement":                                     { "type": "object" },
-                    "minecraft:leashable":                                         { "type": "object" },
-                    "minecraft:lookat":                                            { "type": "object" },
-                    "minecraft:loot":                                              { "type": "object" },
-                    "minecraft:managed_wandering_trader":                          { "type": "object" },
-                    "minecraft:mark_variant":                                      { "type": "object" },
-                    "minecraft:mob_effect":                                        { "type": "object" },
-                    "minecraft:movement":                                          { "type": "object" },
-                    "minecraft:movement.amphibious":                               { "type": "object" },
-                    "minecraft:movement.basic":                                    { "type": "object" },
-                    "minecraft:movement.fly":                                      { "type": "object" },
-                    "minecraft:movement.generic":                                  { "type": "object" },
-                    "minecraft:movement.hover":                                    { "type": "object" },
-                    "minecraft:movement.jump":                                     { "type": "object" },
-                    "minecraft:movement.glide":                                    { "type": "object" },
-                    "minecraft:skin_id":                                           { "type": "object" },
-                    "minecraft:movement.skip":                                     { "type": "object" },
-                    "minecraft:movement.sway":                                     { "type": "object" },
-                    "minecraft:nameable":                                          { "type": "object" },
-                    "minecraft:navigation.climb":                                  { "type": "object" },
-                    "minecraft:navigation.float":                                  { "type": "object" },
-                    "minecraft:navigation.fly":                                    { "type": "object" },
-                    "minecraft:navigation.generic":                                { "type": "object" },
-                    "minecraft:navigation.hover":                                  { "type": "object" },
-                    "minecraft:navigation.swim":                                   { "type": "object" },
-                    "minecraft:navigation.walk":                                   { "type": "object" },
-                    "minecraft:on_death":                                          { "type": "object" },
-                    "minecraft:on_friendly_anger":                                 { "type": "object" },
-                    "minecraft:on_hurt":                                           { "type": "object" },
-                    "minecraft:on_hurt_by_player":                                 { "type": "object" },
-                    "minecraft:on_ignite":                                         { "type": "object" },
-                    "minecraft:on_start_landing":                                  { "type": "object" },
-                    "minecraft:on_start_takeoff":                                  { "type": "object" },
-                    "minecraft:on_target_acquired":                                { "type": "object" },
-                    "minecraft:on_target_escape":                                  { "type": "object" },
-                    "minecraft:on_wake_with_owner":                                { "type": "object" },
-                    "minecraft:peek":                                              { "type": "object" },
-                    "minecraft:persistent":                                        { "type": "object" },
-                    "minecraft:physics":                                           { "type": "object" },
-                    "minecraft:player.saturation":                                 { "type": "object" },
-                    "minecraft:player.exhaustion":                                 { "type": "object" },
-                    "minecraft:player.level":                                      { "type": "object" },
-                    "minecraft:player.experience":                                 { "type": "object" },
-                    "minecraft:pushable":                                          { "type": "object" },
-                    "minecraft:push_through":                                      { "type": "object" },
-                    "minecraft:preferred_path":                                    { "type": "object" },
-                    "minecraft:projectile":                                        { "type": "object" },
-                    "minecraft:raid_trigger":                                      { "type": "object" },
-                    "minecraft:rail_movement":                                     { "type": "object" },
-                    "minecraft:rail_sensor":                                       { "type": "object" },
-                    "minecraft:ravager_blocked":                                   { "type": "object" },
-                    "minecraft:rideable":                                          { "type": "object" },
-                    "minecraft:scaffolding_climber":                               { "type": "object" },
-                    "minecraft:scale":                                             { "type": "object" },
-                    "minecraft:scale_by_age":                                      { "type": "object" },
-                    "minecraft:scheduler":                                         { "type": "object" },
-                    "minecraft:shareables":                                        { "type": "object" },
-                    "minecraft:shooter":                                           { "type": "object" },
-                    "minecraft:sittable":                                          { "type": "object" },
-                    "minecraft:sound_volume":                                      { "type": "object" },
-                    "minecraft:spawn_entity":                                      { "type": "object" },
-                    "minecraft:spell_effects":                                     { "type": "object" },
-                    "minecraft:strength":                                          { "type": "object" },
-                    "minecraft:tameable":                                          { "type": "object" },
-                    "minecraft:tamemount":                                         { "type": "object" },
-                    "minecraft:target_nearby_sensor":                              { "type": "object" },
-                    "minecraft:teleport":                                          { "type": "object" },
-                    "minecraft:tick_world":                                        { "type": "object" },
-                    "minecraft:timer":                                             { "type": "object" },
-                    "minecraft:trade_resupply":                                    { "type": "object" },
-                    "minecraft:trade_table":                                       { "type": "object" },
-                    "minecraft:trail":                                             { "type": "object" },
-                    "minecraft:transformation":                                    { "type": "object" },
-                    "minecraft:trusting":                                          { "type": "object" },
-                    "minecraft:trust":                                             { "type": "object" },
-                    "minecraft:type_family":                                       { "type": "object" },
-                    "minecraft:underwater_movement":                               { "type": "object" },
-                    "minecraft:variant":                                           { "type": "object" },
-                    "minecraft:walk_animation_speed":                              { "type": "object" },
-                    "minecraft:wants_jockey":                                      { "type": "object" },
-                    "minecraft:water_movement":                                    { "type": "object" }
+                    "minecraft.behavior.hide": {
+                        "type": "object",
+                        "properties": {
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" },
+                            "poi_type": { "$ref": "#/definitions/library/components/values/poi_type" },
+                            "duration": { "$ref": "#/definitions/library/components/values/duration" },
+                            "speed_multiplier": { "$ref": "#/definitions/library/components/values/speed_multiplier" },
+                            "timeout_cooldown": { "$ref": "#/definitions/library/components/values/timeout_cooldown" }
+                        },
+                        "description": "Allows a mob with the hide component to attempt to move to - and hide at - an owned or nearby POI."
+                    },
+                    "minecraft.behavior.move_to_poi": {
+                        "type": "object"
+                    },
+                    "minecraft.behavior.scared": {
+                        "type": "object"
+                    },
+                    "minecraft.behavior.work": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.avoid_mob_type": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.beg": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.break_door": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.breed": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.celebrate": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.charge_attack": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.charge_held_item": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.circle_around_anchor": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.controlled_by_player": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.defend_trusted_target": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.defend_village_target": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.delayed_attack": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.door_interact": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.dragonchargeplayer": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.dragondeath": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.dragonflaming": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.dragonholdingpattern": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.dragonlanding": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.dragonscanning": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.dragonstrafeplayer": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.dragontakeoff": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.drink_potion": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.drop_item_for": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.eat_block": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.eat_carried_item": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.enderman_leave_block": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.enderman_take_block": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.explore_outskirts": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.find_cover": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.find_mount": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.find_underwater_treasure": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.flee_sun": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.float": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.float_wander": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.follow_caravan": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.follow_mob": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.follow_owner": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.follow_parent": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.follow_target_captain": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.go_home": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.guardian_attack": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.harvest_farm_block": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.hold_ground": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.hurt_by_target": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.inspect_bookshelf": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.knockback_roar": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.lay_down": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.lay_egg": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.leap_at_target": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.look_at_entity": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.look_at_player": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.look_at_target": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.look_at_trading_player": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.make_love": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.melee_attack": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.mingle": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.mount_pathing": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.move_indoors": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.move_through_village": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.move_to_land": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.move_to_random_block": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.move_to_village": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.move_to_water": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.move_towards_restriction": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.move_towards_target": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.nap": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.nearest_attackable_target": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.nearest_prioritized_attackable_target": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.ocelot_sit_on_block": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.ocelotattack": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.offer_flower": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.open_door": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.owner_hurt_by_target": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.owner_hurt_target": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.panic": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.peek": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.pet_sleep_with_owner": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.pickup_items": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.play": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.player_ride_tamed": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.raid_garden": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.random_breach": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.random_fly": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.random_hover": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.random_look_around": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.random_look_around_and_sit": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.random_sitting": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.random_stroll": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.random_swim": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.ranged_attack": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.receive_love": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.restrict_open_door": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.restrict_sun": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.roll": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.run_around_like_crazy": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.send_event": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.share_items": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.silverfish_merge_with_stone": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.silverfish_wake_up_friends": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.skeleton_horse_trap": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.sleep": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.slime_attack": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.slime_float": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.slime_keep_on_jumping": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.slime_random_direction": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.snacking": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.sneeze": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.squid_dive": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.squid_flee": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.squid_idle": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.squid_move_away_from_ground": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.squid_out_of_water": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.stalk_and_pounce_on_target": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.stay_while_sitting": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.stomp_attack": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.stomp_turtle_egg": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.stroll_towards_village": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.summon_entity": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.swell": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.swim_idle": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.swim_wander": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.swim_with_entity": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.swoop_attack": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.take_flower": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.tempt": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.trade_interest": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.trade_with_player": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.vex_copy_owner_target": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.vex_random_move": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.wither_random_attack_pos_goal": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.wither_target_highest_damage": {
+                        "type": "object"
+                    },
+                    "minecraft:addrider": {
+                        "type": "object"
+                    },
+                    "minecraft:admire_item": {
+                        "type": "object"
+                    },
+                    "minecraft:ageable": {
+                        "type": "object"
+                    },
+                    "minecraft:ambient_sound_interval": {
+                        "type": "object"
+                    },
+                    "minecraft:angry": {
+                        "type": "object"
+                    },
+                    "minecraft:area_attack": {
+                        "type": "object"
+                    },
+                    "minecraft:attack": {
+                        "type": "object"
+                    },
+                    "minecraft:attack_cooldown": {
+                        "type": "object"
+                    },
+                    "minecraft:attack_damage": {
+                        "type": "object"
+                    },
+                    "minecraft:balloonable": {
+                        "type": "object"
+                    },
+                    "minecraft:barter": {
+                        "type": "object"
+                    },
+                    "minecraft:block_sensor": {
+                        "type": "object"
+                    },
+                    "minecraft:boostable": {
+                        "type": "object"
+                    },
+                    "minecraft:boss": {
+                        "type": "object"
+                    },
+                    "minecraft:break_blocks": {
+                        "type": "object"
+                    },
+                    "minecraft:breathable": {
+                        "type": "object"
+                    },
+                    "minecraft:breedable": {
+                        "type": "object"
+                    },
+                    "minecraft:bribeable": {
+                        "type": "object"
+                    },
+                    "minecraft:burns_in_daylight": {
+                        "type": "object"
+                    },
+                    "minecraft:can_climb": {
+                        "type": "object"
+                    },
+                    "minecraft:can_fly": {
+                        "type": "object"
+                    },
+                    "minecraft:can_power_jump": {
+                        "type": "object"
+                    },
+                    "minecraft:celebrate_hunt": {
+                        "type": "object"
+                    },
+                    "minecraft:collision_box": {
+                        "type": "object"
+                    },
+                    "minecraft:color": {
+                        "type": "object"
+                    },
+                    "minecraft:color2": {
+                        "type": "object"
+                    },
+                    "minecraft:custom_hit_test": {
+                        "type": "object"
+                    },
+                    "minecraft:damage_over_time": {
+                        "type": "object"
+                    },
+                    "minecraft:damage_sensor": {
+                        "type": "object"
+                    },
+                    "minecraft:default_look_angle": {
+                        "type": "object"
+                    },
+                    "minecraft:despawn": {
+                        "type": "object"
+                    },
+                    "minecraft:dweller": {
+                        "type": "object"
+                    },
+                    "minecraft:economy_trade_table": {
+                        "type": "object"
+                    },
+                    "minecraft:environment_sensor": {
+                        "type": "object"
+                    },
+                    "minecraft:entity_sensor": {
+                        "type": "object"
+                    },
+                    "minecraft:equipment": {
+                        "type": "object"
+                    },
+                    "minecraft:equippable": {
+                        "type": "object"
+                    },
+                    "minecraft:experience_reward": {
+                        "type": "object"
+                    },
+                    "minecraft:explode": {
+                        "type": "object"
+                    },
+                    "minecraft:fire_immune": {
+                        "type": "object"
+                    },
+                    "minecraft:floats_in_liquid": {
+                        "type": "object"
+                    },
+                    "minecraft:flocking": {
+                        "type": "object"
+                    },
+                    "minecraft:flying_speed": {
+                        "type": "object"
+                    },
+                    "minecraft:follow_range": {
+                        "type": "object"
+                    },
+                    "minecraft:foot_size": {
+                        "type": "object"
+                    },
+                    "minecraft:friction_modifier": {
+                        "type": "object"
+                    },
+                    "minecraft:genetics": {
+                        "type": "object"
+                    },
+                    "minecraft:giveable": {
+                        "type": "object"
+                    },
+                    "minecraft:ground_offset": {
+                        "type": "object"
+                    },
+                    "minecraft:group_size": {
+                        "type": "object"
+                    },
+                    "minecraft:grows_crop": {
+                        "type": "object"
+                    },
+                    "minecraft:healable": {
+                        "type": "object"
+                    },
+                    "minecraft:health": {
+                        "type": "object"
+                    },
+                    "minecraft:hide": {
+                        "type": "object"
+                    },
+                    "minecraft:home": {
+                        "type": "object"
+                    },
+                    "minecraft:horse.jump_strength": {
+                        "type": "object"
+                    },
+                    "minecraft:hurt_on_condition": {
+                        "type": "object"
+                    },
+                    "minecraft:input_ground_controlled": {
+                        "type": "object"
+                    },
+                    "minecraft:insomnia": {
+                        "type": "object"
+                    },
+                    "minecraft:interact": {
+                        "type": "object"
+                    },
+                    "minecraft:inventory": {
+                        "type": "object"
+                    },
+                    "minecraft:is_baby": {
+                        "type": "object"
+                    },
+                    "minecraft:is_charged": {
+                        "type": "object"
+                    },
+                    "minecraft:is_chested": {
+                        "type": "object"
+                    },
+                    "minecraft:is_dyeable": {
+                        "type": "object"
+                    },
+                    "minecraft:is_hidden_when_invisible": {
+                        "type": "object"
+                    },
+                    "minecraft:is_ignited": {
+                        "type": "object"
+                    },
+                    "minecraft:is_illager_captain": {
+                        "type": "object"
+                    },
+                    "minecraft:is_saddled": {
+                        "type": "object"
+                    },
+                    "minecraft:is_shaking": {
+                        "type": "object"
+                    },
+                    "minecraft:is_sheared": {
+                        "type": "object"
+                    },
+                    "minecraft:is_stackable": {
+                        "type": "object"
+                    },
+                    "minecraft:is_stunned": {
+                        "type": "object"
+                    },
+                    "minecraft:is_tamed": {
+                        "type": "object"
+                    },
+                    "minecraft:item_controllable": {
+                        "type": "object"
+                    },
+                    "minecraft:item_hopper": {
+                        "type": "object"
+                    },
+                    "minecraft:jump.dynamic": {
+                        "type": "object"
+                    },
+                    "minecraft:jump.static": {
+                        "type": "object"
+                    },
+                    "minecraft:knockback_resistance": {
+                        "type": "object"
+                    },
+                    "minecraft:lava_movement": {
+                        "type": "object"
+                    },
+                    "minecraft:leashable": {
+                        "type": "object"
+                    },
+                    "minecraft:lookat": {
+                        "type": "object"
+                    },
+                    "minecraft:loot": {
+                        "type": "object"
+                    },
+                    "minecraft:managed_wandering_trader": {
+                        "type": "object"
+                    },
+                    "minecraft:mark_variant": {
+                        "type": "object"
+                    },
+                    "minecraft:mob_effect": {
+                        "type": "object"
+                    },
+                    "minecraft:movement": {
+                        "type": "object"
+                    },
+                    "minecraft:movement.amphibious": {
+                        "type": "object"
+                    },
+                    "minecraft:movement.basic": {
+                        "type": "object"
+                    },
+                    "minecraft:movement.fly": {
+                        "type": "object"
+                    },
+                    "minecraft:movement.generic": {
+                        "type": "object"
+                    },
+                    "minecraft:movement.hover": {
+                        "type": "object"
+                    },
+                    "minecraft:movement.jump": {
+                        "type": "object"
+                    },
+                    "minecraft:movement.glide": {
+                        "type": "object"
+                    },
+                    "minecraft:skin_id": {
+                        "type": "object"
+                    },
+                    "minecraft:movement.skip": {
+                        "type": "object"
+                    },
+                    "minecraft:movement.sway": {
+                        "type": "object"
+                    },
+                    "minecraft:nameable": {
+                        "type": "object"
+                    },
+                    "minecraft:navigation.climb": {
+                        "type": "object"
+                    },
+                    "minecraft:navigation.float": {
+                        "type": "object"
+                    },
+                    "minecraft:navigation.fly": {
+                        "type": "object"
+                    },
+                    "minecraft:navigation.generic": {
+                        "type": "object"
+                    },
+                    "minecraft:navigation.hover": {
+                        "type": "object"
+                    },
+                    "minecraft:navigation.swim": {
+                        "type": "object"
+                    },
+                    "minecraft:navigation.walk": {
+                        "type": "object"
+                    },
+                    "minecraft:on_death": {
+                        "type": "object"
+                    },
+                    "minecraft:on_friendly_anger": {
+                        "type": "object"
+                    },
+                    "minecraft:on_hurt": {
+                        "type": "object"
+                    },
+                    "minecraft:on_hurt_by_player": {
+                        "type": "object"
+                    },
+                    "minecraft:on_ignite": {
+                        "type": "object"
+                    },
+                    "minecraft:on_start_landing": {
+                        "type": "object"
+                    },
+                    "minecraft:on_start_takeoff": {
+                        "type": "object"
+                    },
+                    "minecraft:on_target_acquired": {
+                        "type": "object"
+                    },
+                    "minecraft:on_target_escape": {
+                        "type": "object"
+                    },
+                    "minecraft:on_wake_with_owner": {
+                        "type": "object"
+                    },
+                    "minecraft:peek": {
+                        "type": "object"
+                    },
+                    "minecraft:persistent": {
+                        "type": "object"
+                    },
+                    "minecraft:physics": {
+                        "type": "object"
+                    },
+                    "minecraft:player.saturation": {
+                        "type": "object"
+                    },
+                    "minecraft:player.exhaustion": {
+                        "type": "object"
+                    },
+                    "minecraft:player.level": {
+                        "type": "object"
+                    },
+                    "minecraft:player.experience": {
+                        "type": "object"
+                    },
+                    "minecraft:pushable": {
+                        "type": "object"
+                    },
+                    "minecraft:push_through": {
+                        "type": "object"
+                    },
+                    "minecraft:preferred_path": {
+                        "type": "object"
+                    },
+                    "minecraft:projectile": {
+                        "type": "object"
+                    },
+                    "minecraft:raid_trigger": {
+                        "type": "object"
+                    },
+                    "minecraft:rail_movement": {
+                        "type": "object"
+                    },
+                    "minecraft:rail_sensor": {
+                        "type": "object"
+                    },
+                    "minecraft:ravager_blocked": {
+                        "type": "object"
+                    },
+                    "minecraft:rideable": {
+                        "type": "object"
+                    },
+                    "minecraft:scaffolding_climber": {
+                        "type": "object"
+                    },
+                    "minecraft:scale": {
+                        "type": "object"
+                    },
+                    "minecraft:scale_by_age": {
+                        "type": "object"
+                    },
+                    "minecraft:scheduler": {
+                        "type": "object"
+                    },
+                    "minecraft:shareables": {
+                        "type": "object"
+                    },
+                    "minecraft:shooter": {
+                        "type": "object"
+                    },
+                    "minecraft:sittable": {
+                        "type": "object"
+                    },
+                    "minecraft:sound_volume": {
+                        "type": "object"
+                    },
+                    "minecraft:spawn_entity": {
+                        "type": "object"
+                    },
+                    "minecraft:spell_effects": {
+                        "type": "object"
+                    },
+                    "minecraft:strength": {
+                        "type": "object"
+                    },
+                    "minecraft:tameable": {
+                        "type": "object"
+                    },
+                    "minecraft:tamemount": {
+                        "type": "object"
+                    },
+                    "minecraft:target_nearby_sensor": {
+                        "type": "object"
+                    },
+                    "minecraft:teleport": {
+                        "type": "object"
+                    },
+                    "minecraft:tick_world": {
+                        "type": "object"
+                    },
+                    "minecraft:timer": {
+                        "type": "object"
+                    },
+                    "minecraft:trade_resupply": {
+                        "type": "object"
+                    },
+                    "minecraft:trade_table": {
+                        "type": "object"
+                    },
+                    "minecraft:trail": {
+                        "type": "object"
+                    },
+                    "minecraft:transformation": {
+                        "type": "object"
+                    },
+                    "minecraft:trusting": {
+                        "type": "object"
+                    },
+                    "minecraft:trust": {
+                        "type": "object"
+                    },
+                    "minecraft:type_family": {
+                        "type": "object"
+                    },
+                    "minecraft:underwater_movement": {
+                        "type": "object"
+                    },
+                    "minecraft:variant": {
+                        "type": "object"
+                    },
+                    "minecraft:walk_animation_speed": {
+                        "type": "object"
+                    },
+                    "minecraft:wants_jockey": {
+                        "type": "object"
+                    },
+                    "minecraft:water_movement": {
+                        "type": "object" 
+                    }
+                },
+                "values": {
+                    "priority": { "type": "number", "default": 1.0, "description": "Determines which behavior the entity will prioritize when two of the same type run. 0 is the highest priority." },
+                    "poi_type": { "type": "string", "examples": [ "bed" ], "description": "Defines what POI type to hide at." },
+                    "duration": { "type": "number", "default": 1.0, "description": "Amount of time in seconds that the mob reacts." },
+                    "speed_multiplier": { "type": "number", "description": "Movement speed multiplier of the mob when using this AI Goal" },
+                    "timeout_cooldown": { "type": "number", "default": "8.0", "description": "Movement speed multiplier of the mob when using this AI Goal" }
                 }
             }
         }
