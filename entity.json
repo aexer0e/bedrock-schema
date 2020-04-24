@@ -9,7 +9,8 @@
             "properties": {
                 "format_version": { "type": "string", "format": "number", "examples": [ "1.12", "1.13", "1.14", "1.15", "1.16" ] },
                 "minecraft:entity": { "$ref": "#/definitions/entity" },
-                "animation_controllers": { "$ref": "#/definitions/animation_controllers" }
+                "animation_controllers": { "$ref": "#/definitions/animation_controllers" },
+                "animations": { "$ref": "#/definitions/animations" }
             }
         },
         "entity": {
@@ -49,6 +50,23 @@
                 "animations": { "title": "Animations", "type": "array" },
                 "transitions": { "title": "Transitions", "type": "array", "items": { "type": "object" } }
             }
+        },
+        "animations": {
+            "title": "Animations",
+            "type": "object",
+            "patternProperties": { "^.*$": { "$ref": "#/definitions/animation" } }
+        },
+        "animation": {
+            "title": "Animation",
+            "required": [ "timeline" ],
+            "type": "object",
+            "properties": { "timeline": { "$ref": "#/definitions/timeline" }, "animation_length": { "type": "number" } }
+        },
+        "timeline": {
+            "title": "Timeline",
+            "type": "object",
+            "patternProperties": { "^[+-]?([0-9]*[.])?[0-9]*$": { "type": [ "array", "string"], "format": "string" } },
+            "additionalProperties": false
         },
         "description": {
             "title": "Description",
