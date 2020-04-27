@@ -1,8 +1,7 @@
 {
+    "$id": "https://aexer0e.github.io/bedrock-schema/",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$ref": "#/definitions/Entity",
-    "$id": "https://aexer0e.github.io/bedrock-schema/",
-    "type": "object",
     "definitions": {
         "Entity": {
             "type": "object",
@@ -34,7 +33,7 @@
             "title": "Animation Controller",
             "required": [ "states" ],
             "type": "object",
-            "properties": { "states": { "$ref": "#/definitions/states" } }
+            "properties": { "initial_state": { "type": "string" }, "states": { "$ref": "#/definitions/states" } }
         },
         "states": {
             "title": "States",
@@ -59,7 +58,6 @@
         },
         "animation": {
             "title": "Animation",
-            "required": [ "timeline" ],
             "type": "object",
             "properties": { "timeline": { "$ref": "#/definitions/timeline" }, "animation_length": { "type": "number" } }
         },
@@ -2052,6 +2050,7 @@
                     },
                     "minecraft:behavior.celebrate": {
                         "type": "object",
+                        "description": "This allows the mob celebrate by jumping up and playing a sound periodically.",
                         "properties": {
                             "priority": { "$ref": "#/definitions/library/components/values/priority" },
                             "celebration_sound": { "type": "string", "description": "The sound to occasionally play." },
@@ -2063,12 +2062,14 @@
                     },
                     "minecraft:behavior.charge_attack": {
                         "type": "object",
+                        "description": "Allows the mob to attack its target by running at it.",
                         "properties": {
                             "priority": { "$ref": "#/definitions/library/components/values/priority" }
                         }
                     },
                     "minecraft:behavior.charge_held_item": {
                         "type": "object",
+                        "description": "Allows this mob to charge and use their held item.",
                         "properties": {
                             "priority": { "$ref": "#/definitions/library/components/values/priority" },
                             "items": { "$ref": "#/definitions/library/components/values/items", "description": "The list of items that can be used to charge the held item." }
@@ -2076,6 +2077,7 @@
                     },
                     "minecraft:behavior.circle_around_anchor": {
                         "type": "object",
+                        "description": "Allows the mob to move in a circle around a point or a target.",
                         "properties": {
                             "priority": { "$ref": "#/definitions/library/components/values/priority" },
                             "goal_radius": { "$ref": "#/definitions/library/components/values/goal_radius" },
@@ -2089,6 +2091,7 @@
                     },
                     "minecraft:behavior.controlled_by_player": {
                         "type": "object",
+                        "description": "Allows the mob to be controlled by the player.",
                         "properties": {
                             "priority": { "$ref": "#/definitions/library/components/values/priority" }
                         }
@@ -2109,6 +2112,7 @@
                     },
                     "minecraft:behavior.defend_village_target": {
                         "type": "object",
+                        "description": "Allows the mob to stay in the village and fight mobs hostile to the villagers.",
                         "properties": {
                             "priority": { "$ref": "#/definitions/library/components/values/priority" },
                             "entity_types": { "$ref": "#/definitions/library/components/values/entity_types", "description": "List of entity types this mob considers a threat to the village" }
@@ -2116,6 +2120,7 @@
                     },
                     "minecraft:behavior.delayed_attack": {
                         "type": "object",
+                        "description": "Allows the mob to an attack where the hit is delayed.",
                         "properties": {
                             "priority": { "$ref": "#/definitions/library/components/values/priority" },
                             "speed_multiplier": { "$ref": "#/definitions/library/components/values/speed_multiplier" },
@@ -2143,66 +2148,123 @@
                     },
                     "minecraft:behavior.door_interact": {
                         "type": "object",
+                        "description": "Allows the mob to open and close doors.",
                         "properties": {
                             "priority": { "$ref": "#/definitions/library/components/values/priority" }
                         }
                     },
-                    "minecraft:behavior.dragonchargeplayer": {
-                        "type": "object"
-                    },
                     "minecraft:behavior.dragondeath": {
-                        "type": "object"
-                    },
-                    "minecraft:behavior.dragonflaming": {
-                        "type": "object"
+                        "type": "object",
+                        "description": "Allows the dragon to go out with glory. This controls the Ender Dragon's death animation and can't be used by other mobs.",
+                        "properties": {
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" }
+                        }
                     },
                     "minecraft:behavior.dragonholdingpattern": {
-                        "type": "object"
+                        "type": "object",
+                        "description": "Allows the Dragon to fly around in a circle around the center podium. Can only be used by the Ender Dragon.",
+                        "properties": {
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" }
+                        }
                     },
                     "minecraft:behavior.dragonlanding": {
-                        "type": "object"
+                        "type": "object",
+                        "description": "Allows the Dragon to stop flying and transition into perching mode. Can only be used by the Ender Dragon.",
+                        "properties": {
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" }
+                        }
                     },
                     "minecraft:behavior.dragonscanning": {
-                        "type": "object"
-                    },
-                    "minecraft:behavior.dragonstrafeplayer": {
-                        "type": "object"
+                        "type": "object",
+                        "description": "Allows the dragon to look around for a player to attack while in perch mode. Can only be used by the Ender Dragon.",
+                        "properties": {
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" }
+                        }
                     },
                     "minecraft:behavior.dragontakeoff": {
-                        "type": "object"
+                        "type": "object",
+                        "description": "Allows the dragon to leave perch mode and go back to flying around. Can only be used by the Ender Dragon.",
+                        "properties": {
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" }
+                        }
                     },
                     "minecraft:behavior.drink_potion": {
                         "type": "object",
+                        "description": "Allows the mob to drink potions based on specified environment conditions.",
                         "properties": {
-                            "priority": { "$ref": "#/definitions/library/components/values/priority" }
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" },
+                            "speed_modifier": { "type": "number", "default": 0.0 },
+                            "potions": { "type": "array", "items": { "type": "object", "description": "A list of potions that this entity can drink.", "properties": {
+                                "chance": { "type": "number", "default": 1.0, "description": "The percent chance (from 0.0 to 1.0) of this potion being selected when searching for a potion to use." },
+                                "filter": { "$ref": "#/definitions/filters", "description": "The filters to use when determining if this potion can be selected." },
+                                "id": { "type": "integer", "default": -1, "description": "The registry ID of the potion to use" }
+                            } } }
                         }
                     },
                     "minecraft:behavior.drop_item_for": {
                         "type": "object",
+                        "description": "Allows the mob to move near a target and drop an item.",
                         "properties": {
-                            "priority": { "$ref": "#/definitions/library/components/values/priority" }
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" },
+                            "drop_item_chance": { "type": "number", "default": 1.0, "description": "The probability that the mob will drop an item." },
+                            "entity_types": { "$ref": "#/definitions/library/components/values/entity_types", "description": "List of entity types this mob will drop items for." },
+                            "goal_radius": { "$ref": "#/definitions/library/components/values/goal_radius" },
+                            "loot_table": { "$ref": "#/definitions/library/components/values/loot_table", "description": "Loot table to select items from." },
+                            "max_dist": { "$ref": "#/definitions/library/components/values/max_dist", "description": "Maximum distance in blocks this mob will look for entities to drop an item for." },
+                            "offering_distance": { "type": "number", "default": 1.0, "description": "The distance in blocks the mob will try to be away from the entity when it drops the item." },
+                            "on_drop_attempt": { "$ref": "#/definitions/library/components/values/trigger", "description": "Event to run when this mob attempts to drop an item." },
+                            "search_height": { "$ref": "#/definitions/library/components/values/search_height", "description": "Height in blocks from the target the mob can be." },
+                            "search_range": { "$ref": "#/definitions/library/components/values/search_range", "description": "The distance in blocks from the target the mob can be." },
+                            "speed_multiplier": { "$ref": "#/definitions/library/components/values/speed_multiplier" },
+                            "time_of_day_range": {
+                                "type": "array",
+                                "items": { "type": "number" },
+                                "minItems": 2,
+                                "maxItems": 2,
+                                "default": [0, 1],
+                                "description": "The valid times of day that this goal can be used. For reference: noon is 0.0, sunset is 0.25, midnight is 0.5, and sunrise is 0.75, and back to noon for 1.0."
+                            }
                         }
                     },
                     "minecraft:behavior.eat_block": {
                         "type": "object",
+                        "description": "Allows the mob to eat a block (for example, sheep eating grass).",
                         "properties": {
-                            "priority": { "$ref": "#/definitions/library/components/values/priority" }
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" },
+                            "on_eat": { "$ref": "#/definitions/library/components/values/trigger", "description": "Trigger to fire when the mob eats a block of grass" },
+                            "delay_before_eating": { "$type": "number", "description": "Time in seconds the mob should wait before eating the item." }
                         }
                     },
                     "minecraft:behavior.eat_carried_item": {
                         "type": "object",
+                        "description": "If the mob is carrying a food item, the mob will eat it and the effects will be applied to the mob.",
                         "properties": {
                             "priority": { "$ref": "#/definitions/library/components/values/priority" }
                         }
                     },
                     "minecraft:behavior.enderman_leave_block": {
-                        "type": "object"
+                        "type": "object",
+                        "description": "Allows the enderman to drop a block they are carrying. Can only be used by Endermen.",
+                        "properties": {
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" }
+                        }
                     },
                     "minecraft:behavior.enderman_take_block": {
-                        "type": "object"
+                        "type": "object",
+                        "description": "Allows the enderman to take a block and carry it around. Can only be used by Endermen.",
+                        "properties": {
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" }
+                        }
                     },
                     "minecraft:behavior.explore_outskirts": {
-                        "type": "object"
+                        "type": "object",
+                        "description": "Allows a mob to explore the outskirts of a village",
+                        "properties": {
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" },
+                            "explore_dist": { "type": "number", "default": 5, "description": "The distance in which the mob will proceed past the village bounds" },
+                            "speed_multiplier": { "$ref": "#/definitions/library/components/values/speed_multiplier" },
+                            "wait_time": { "type": "integer", "default": 0, "description": "The time the mob will stand around 'searching' for POIs" }
+                        }
                     },
                     "minecraft:behavior.find_cover": {
                         "type": "object"
@@ -3022,6 +3084,10 @@
                     "x_max_rotation": { "type": "number", "default": 30.0, "description": "Maximum rotation (in degrees), on the X-axis, this entity can rotate while trying to look at the target." },
                     "y_max_head_rotation": { "type": "number", "default": 30.0, "description": "Maximum rotation (in degrees), on the Y-axis, this entity can rotate its head while trying to look at the target." },
                     "cooldown_time": { "type": "number", "default": 1.0 },
+                    "loot_table": { "type": "string" },
+                    "max_dist": { "type": "number", "default": 0.0 },
+                    "search_height": { "type": "integer", "default": 1 },
+                    "search_range": { "type": "integer", "default": 0 },
                     "trigger": {
                         "type": "object",
                         "properties": {
