@@ -33,7 +33,7 @@
             "title": "Animation Controller",
             "required": [ "states" ],
             "type": "object",
-            "properties": { "states": { "$ref": "#/definitions/states" } }
+            "properties": { "initial_state": { "type": "string" }, "states": { "$ref": "#/definitions/states" } }
         },
         "states": {
             "title": "States",
@@ -58,7 +58,6 @@
         },
         "animation": {
             "title": "Animation",
-            "required": [ "timeline" ],
             "type": "object",
             "properties": { "timeline": { "$ref": "#/definitions/timeline" }, "animation_length": { "type": "number" } }
         },
