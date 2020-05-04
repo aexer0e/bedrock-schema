@@ -76,8 +76,8 @@
                 "is_summonable": { "type": "boolean" },
                 "is_experimental": { "type": "boolean" },
                 "runtime_identifier": { "type": "string", "$ref": "#/definitions/library/entities" },
-                "scripts": { "type": "object", "properties": { "animate": { "type": "array", "examples": [ "execute_commands" ] } } },
-                "animations": { "type": "object", "patternProperties": { "^.*$": { "type": "string" } }, "examples": [ "execute_commands" ] }
+                "scripts": { "type": "object", "properties": { "animate": { "type": "array", "items": { "examples": [ "execute_commands" ] } } } },
+                "animations": { "type": "object", "patternProperties": { "^.*$": { "type": "string", "examples": [ "execute_commands" ] } } }
             }
         },
         "component_groups": {
