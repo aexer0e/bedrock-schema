@@ -240,7 +240,11 @@
                 "patternProperties": {
                     //if you use eleventh or above it's your fault
                     "^(([1-9]+)|((all)|(last)|(end)|(first)|(second)|(third)|(fourth)|(fifth)|(sixth)|(seventh)|(eighth)|(ninth)|(tenth)))-?(([1-9]*)|((all)|(last)|(end)|(first)|(second)|(third)|(fourth)|(fifth)|(sixth)|(seventh)|(eighth)|(ninth)|(tenth)))$": {
-                        "type": "string"
+                        "type": [ "string", "array" ],
+                        "$ref": "#/library/transitions",
+                        "if": { "type": "string" },
+                        "then": { "$ref": "#/library/transitions" },
+                        "else": { "items": { "type": "string", "$ref": "#/library/transitions" } }
                     }
                 },
                 "additionalProperties": false
@@ -253,8 +257,11 @@
                 "patternProperties": {
                     //if you use eleventh or above it's your fault
                     "^(([1-9]+)|((all)|(last)|(end)|(first)|(second)|(third)|(fourth)|(fifth)|(sixth)|(seventh)|(eighth)|(ninth)|(tenth)))-?(([1-9]*)|((all)|(last)|(end)|(first)|(second)|(third)|(fourth)|(fifth)|(sixth)|(seventh)|(eighth)|(ninth)|(tenth)))$": {
-                        "type": "string",
-                        "$ref": "#/library/transitions"
+                        "type": [ "string", "array" ],
+                        "$ref": "#/library/transitions",
+                        "if": { "type": "string" },
+                        "then": { "$ref": "#/library/transitions" },
+                        "else": { "items": { "type": "string", "$ref": "#/library/transitions" } }
                     }
                 },
                 "additionalProperties": false
