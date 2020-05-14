@@ -17,14 +17,7 @@
         "states": {
             "type": "array",
             "title": "States",
-            "items": {
-                "type": "object",
-                "patternProperties": {
-                    "^.*$": {
-                        "$ref": "#/definitions/state"
-                    }
-                }
-            }
+            "items": { "$ref": "#/definitions/state" }
         },
         "entity": {
             "type": [ "string", "object" ],
