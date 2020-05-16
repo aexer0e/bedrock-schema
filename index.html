@@ -2428,21 +2428,31 @@
                         "type": "object",
                         "description": "Allows the mob to inspect bookshelves.",
                         "properties": {
-                            "priority": { "$ref": "#/definitions/library/components/values/priority" }
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" },
+                            "goal_radius": { "$ref": "#/definitions/library/components/values/goal_radius" },
+                            "search_count": { "$ref": "#/definitions/library/components/values/search_count" },
+                            "search_height": { "$ref": "#/definitions/library/components/values/search_height", "description": "The height that the mob will search for bookshelves" },
+                            "search_range": { "$ref": "#/definitions/library/components/values/search_range", "description": "Distance in blocks the mob will look for books to inspect"  },
+                            "speed_multiplier": { "$ref": "#/definitions/library/components/values/speed_multiplier" }
                         }
                     },
                     "minecraft:behavior.knockback_roar": {
                         "type": "object",
                         "description": "Allows the mob to perform a damaging knockback that affects all nearby entities.",
                         "properties": {
-                            "priority": { "$ref": "#/definitions/library/components/values/priority" }
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" },
+                            "on_roar_end": { "$ref": "#/definitions/library/components/values/trigger", "description": "Event to trigger when the knockback roar is complete." },
+                            "attack_time": { "type": "number", "default": 0.5, "description": "The delay after which the knockback occurs (in seconds)." },
+                            "cooldown_time": { "$ref": "#/definitions/library/components/values/cooldown_time" }
                         }
                     },
                     "minecraft:behavior.lay_down": {
                         "type": "object",
                         "description": "Allows mobs to lay down at times",
                         "properties": {
-                            "priority": { "$ref": "#/definitions/library/components/values/priority" }
+                            "priority": { "$ref": "#/definitions/library/components/values/priority" },
+                            "interval": { "type": "number", "default": 120, "description": "A random value to determine at what intervals something can occur. This has a 1/interval chance to choose this goal" },
+                            "random_stop_interval": { "type": "number", "default": 120, "description": "A random value in which the goal can use to pull out of the behavior. This is a 1/interval chance to play the sound" }
                         }
                     },
                     "minecraft:behavior.lay_egg": {
@@ -3235,6 +3245,7 @@
                     "max_dist": { "type": "number", "default": 0.0 },
                     "search_height": { "type": "integer", "default": 1 },
                     "search_range": { "type": "integer", "default": 0 },
+                    "search_count": { "type": "integer", "default": 10, "description": "The number of blocks each tick that the mob will check within it's search range and height for a valid block to move to. A value of 0 will have the mob check every block within range in one tick" },
                     "xz_dist": { "type": "integer", "default": 10, "minimum": 1, "description": "Distance in blocks on ground that the mob will look for a new spot to move to. Must be at least 1" },
                     "y_dist": { "type": "integer", "default": 7, "minimum": 1, "description": "Distance in blocks that the mob will look up or down for a new spot to move to. Must be at least 1" },
                     "stop_distance": { "type": "number", "default": 2.0 },
