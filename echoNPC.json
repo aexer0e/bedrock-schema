@@ -22,7 +22,7 @@
         "entity": {
             "type": [ "string", "object" ],
             "title": "Entity",
-            "description": "Entity definition can either be an entity_template, or an actual entity: (don't include both, pick one)",
+            "description": "Entity definition can either be an entity_template, or an actual entity: (Don't include both, pick one)",
             "if": { "type": "object" },
             "then": { "$ref": "https://aexer0e.github.io/bedrock-schema" }
         },
