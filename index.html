@@ -2443,7 +2443,11 @@
                             "priority": { "$ref": "#/definitions/library/components/values/priority" },
                             "on_roar_end": { "$ref": "#/definitions/library/components/values/trigger", "description": "Event to trigger when the knockback roar is complete." },
                             "attack_time": { "type": "number", "default": 0.5, "description": "The delay after which the knockback occurs (in seconds)." },
-                            "cooldown_time": { "$ref": "#/definitions/library/components/values/cooldown_time" }
+                            "cooldown_time": { "$ref": "#/definitions/library/components/values/cooldown_time" },
+                            "duration": { "$ref": "#/definitions/library/components/values/duration", "description": "The duration of the roar (in seconds)." },
+                            "knockback_damage": { "type": "integer", "default": 6, "description": "The damage dealt by the knockback roar." },
+                            "knockback_range": { "type": "integer", "default": 6, "description": "The radius (in blocks) of the knockback effect." },
+                            "knockback_strength": { "type": "integer", "default": 6, "description": "The strength of the knockback." }
                         }
                     },
                     "minecraft:behavior.lay_down": {
