@@ -209,7 +209,7 @@
             ],
             "allOf": [
                 {
-                    "if": { "pattern": "^(interact).*$" },
+                    "if": { "pattern": "^(interact ).*$" },
                     "then": { "description": "This is the “right click” transition. If no transitions are supplied, this transition is used.\n<interact> [event]" }
                 },
                 {
@@ -266,7 +266,11 @@
                 },
                 "additionalProperties": false
             },
-            "else": { "items": { "type": "array", "items": { "type": "string", "$ref": "#/library/transitions" } } }
+            "else": {
+                "if": { "type": "array" },
+                "then": { "items": { "type": "string", "$ref": "#/library/transitions" } },
+                "else": { "type": "string", "$ref": "#/library/transitions" }
+            }
         }
     }
 }
