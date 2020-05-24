@@ -675,6 +675,34 @@
                             "leg",
                             "torso"
                         ]
+                    },
+                    "has_damage": {
+                        "examples": [
+                            "anvil",
+                            "attack",
+                            "block_explosion",
+                            "contact",
+                            "drowning",
+                            "entity_explosion",
+                            "fall",
+                            "falling_block",
+                            "fatal",
+                            "fire",
+                            "fire_tick",
+                            "fly_into_wall",
+                            "lava",
+                            "magic",
+                            "none",
+                            "override",
+                            "piston",
+                            "projectile",
+                            "starve",
+                            "suffocation",
+                            "suicide",
+                            "thorns",
+                            "void",
+                            "wither"
+                        ]
                     }
                 }
             },
@@ -3013,10 +3041,16 @@
                         "type": "object"
                     },
                     "minecraft:color": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value" }
+                        }
                     },
                     "minecraft:color2": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value" }
+                        }
                     },
                     "minecraft:custom_hit_test": {
                         "type": "object"
@@ -3025,10 +3059,33 @@
                         "type": "object"
                     },
                     "minecraft:damage_sensor": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "triggers": {
+                                "type": "array",
+                                "items": [
+                                    {
+                                        "properties": {
+                                            "cause": { "type": "string", "$ref": "#/definitions/library/filters/domains/has_damage", "default": "none", "description": "Type of damage that triggers the events." },
+                                            "damage_multiplier": {
+                                                "type": "number",
+                                                "default": 1.0,
+                                                "description": "A multiplier that modifies the base damage from the damage cause. If deals_damage is true the multiplier can only reduce the damage the entity will take to a minimum of 1."
+                                            },
+                                            "deals_damage": { "type": "boolean", "default": true, "description": "If true, the damage dealt to the entity will take away health from it, set to false to make the entity ignore that damage." },
+                                            "on_damage": { "$ref": "#/definitions/library/components/values/trigger", "filters": "Specifies filters for entity definitions and events." },
+                                            "on_damage_sound_event": { "type": "string", "description": "Defines what sound to play, if any, when the on_damage filters are met." }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
                     },
                     "minecraft:default_look_angle": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                        }
                     },
                     "minecraft:despawn": {
                         "type": "object"
@@ -3067,16 +3124,28 @@
                         "type": "object"
                     },
                     "minecraft:flying_speed": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                        }
                     },
                     "minecraft:follow_range": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                        }
                     },
                     "minecraft:foot_size": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                        }
                     },
                     "minecraft:friction_modifier": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                        }
                     },
                     "minecraft:genetics": {
                         "type": "object"
@@ -3085,7 +3154,10 @@
                         "type": "object"
                     },
                     "minecraft:ground_offset": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                        }
                     },
                     "minecraft:group_size": {
                         "type": "object"
@@ -3118,7 +3190,79 @@
                         "type": "object"
                     },
                     "minecraft:interact": {
-                        "type": "object"
+                        "type": "object",
+                        "description": "Defines interactions with this entity.",
+                        "anyOf": [
+                            {
+                                "properties": {
+                                    "add_items": { "type": "object", "properties": { "table": { "$ref": "#/definitions/library/components/values/loot_table" } }, "description": "Loot table with items to add to the player's inventory upon successful interaction." },
+                                    "cooldown": { "$ref": "#/definitions/library/components/values/cooldown", "description": "Time in seconds before this entity can be interacted with again." },
+                                    "hurt_item": { "type": "integer", "default": 0, "description": "The amount of damage the item will take when used to interact with this entity. A value of 0 means the item won't lose durability." },
+                                    "interact_text": { "type": "string", "description": "Text to show when the player is able to interact in this way with this entity when playing with Touch-screen controls." },
+                                    "on_interact": { "$ref": "#/definitions/library/components/values/trigger", "description": "Event to fire when the interaction occurs." },
+                                    "particle_on_start": {
+                                        "type": "object",
+                                        "description": "Particle effect that will be triggered at the start of the interaction.",
+                                        "properties": {
+                                            "particle_offset_towards_interactor": { "description": "Whether or not the particle will appear closer to who performed the interaction." },
+                                            "particle_type": { "description": "The type of particle that will be spawned." },
+                                            "particle_y_offset": { "description": "Will offset the particle this amount in the y direction." }
+                                        }
+                                    },
+                                    "play_sounds": { "type": "string", "description": "List of sounds to play when the interaction occurs." },
+                                    "spawn_entities": { "type": "string", "$ref": "#/definitions/library/entities", "description": "List of entities to spawn when the interaction occurs." },
+                                    "spawn_item": { "type": "object", "properties": { "table": { "$ref": "#/definitions/library/components/values/loot_table" } }, "description": "Loot table with items to drop on the ground upon successful interaction." },
+                                    "swing": { "type": "boolean", "default": false, "description": "If true, the player will do the 'swing' animation when interacting with this entity." },
+                                    "transform_to_item": {
+                                        "type": "string",
+                                        "description": "The item used will transform to this item upon successful interaction. Format: itemName:auxValue",
+                                        "allOf": [ { "$ref": "#/definitions/library/items" }, { "$ref": "#/definitions/library/blocks" } ]
+                                    },
+                                    "use_item": { "type": "boolean", "default": false, "description": "If true, the interaction will use an item." }
+                                },
+                                "additionalProperties": false
+                            },
+                            {
+                                "properties": {
+                                    "type": "object",
+                                    "interactions": {
+                                        "type": "array",
+                                        "items": [
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "add_items": { "type": "object", "properties": { "table": { "$ref": "#/definitions/library/components/values/loot_table" } }, "description": "Loot table with items to add to the player's inventory upon successful interaction." },
+                                                    "cooldown": { "$ref": "#/definitions/library/components/values/cooldown", "description": "Time in seconds before this entity can be interacted with again." },
+                                                    "hurt_item": { "type": "integer", "default": 0, "description": "The amount of damage the item will take when used to interact with this entity. A value of 0 means the item won't lose durability." },
+                                                    "interact_text": { "type": "string", "description": "Text to show when the player is able to interact in this way with this entity when playing with Touch-screen controls." },
+                                                    "on_interact": { "$ref": "#/definitions/library/components/values/trigger", "description": "Event to fire when the interaction occurs." },
+                                                    "particle_on_start": {
+                                                        "type": "object",
+                                                        "description": "Particle effect that will be triggered at the start of the interaction.",
+                                                        "properties": {
+                                                            "particle_offset_towards_interactor": { "description": "Whether or not the particle will appear closer to who performed the interaction." },
+                                                            "particle_type": { "description": "The type of particle that will be spawned." },
+                                                            "particle_y_offset": { "description": "Will offset the particle this amount in the y direction." }
+                                                        }
+                                                    },
+                                                    "play_sounds": { "type": "string", "description": "List of sounds to play when the interaction occurs." },
+                                                    "spawn_entities": { "type": "string", "$ref": "#/definitions/library/entities", "description": "List of entities to spawn when the interaction occurs." },
+                                                    "spawn_item": { "type": "object", "properties": { "table": { "$ref": "#/definitions/library/components/values/loot_table" } }, "description": "Loot table with items to drop on the ground upon successful interaction." },
+                                                    "swing": { "type": "boolean", "default": false, "description": "If true, the player will do the 'swing' animation when interacting with this entity." },
+                                                    "transform_to_item": {
+                                                        "type": "string",
+                                                        "description": "The item used will transform to this item upon successful interaction. Format: itemName:auxValue",
+                                                        "allOf": [ { "$ref": "#/definitions/library/items" }, { "$ref": "#/definitions/library/blocks" } ]
+                                                    },
+                                                    "use_item": { "type": "boolean", "default": false, "description": "If true, the interaction will use an item." }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ]
                     },
                     "minecraft:inventory": {
                         "type": "object"
@@ -3193,7 +3337,10 @@
                         "type": "object"
                     },
                     "minecraft:mark_variant": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value" }
+                        }
                     },
                     "minecraft:mob_effect": {
                         "type": "object"
@@ -3223,7 +3370,10 @@
                         "type": "object"
                     },
                     "minecraft:skin_id": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value" }
+                        }
                     },
                     "minecraft:movement.skip": {
                         "type": "object"
@@ -3310,7 +3460,9 @@
                         "type": "object"
                     },
                     "minecraft:push_through": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
                     },
                     "minecraft:preferred_path": {
                         "type": "object"
@@ -3337,7 +3489,11 @@
                         "type": "object"
                     },
                     "minecraft:scale": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                        }
+                        }
                     },
                     "minecraft:scale_by_age": {
                         "type": "object"
@@ -3355,7 +3511,10 @@
                         "type": "object"
                     },
                     "minecraft:sound_volume": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                        }
                     },
                     "minecraft:spawn_entity": {
                         "type": [ "object", "array" ]
@@ -3364,7 +3523,10 @@
                         "type": "object"
                     },
                     "minecraft:strength": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value" }
+                        }
                     },
                     "minecraft:tameable": {
                         "type": "object"
@@ -3409,10 +3571,16 @@
                         "type": "object"
                     },
                     "minecraft:variant": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value" }
+                        }
                     },
                     "minecraft:walk_animation_speed": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                        }
                     },
                     "minecraft:wants_jockey": {
                         "type": "object"
@@ -3451,9 +3619,11 @@
                     "x_max_rotation": { "type": "number", "default": 30.0, "description": "Maximum rotation (in degrees), on the X-axis, this entity can rotate while trying to look at the target." },
                     "y_max_head_rotation": { "type": "number", "default": 30.0, "description": "Maximum rotation (in degrees), on the Y-axis, this entity can rotate its head while trying to look at the target." },
                     "target_dist": { "type": "number", "default": 0.0, "description": "The distance at which this mob wants to be away from its target" },
-                    "loot_table": { "type": "string" },
+                    "loot_table": { "type": "string", "pattern": "^.*\\.json$", "description": "File path, relative to the Behavior Pack's path, to the loot table file." },
                     "block_distance": { "type": "number", "default": 16.0 },
                     "max_dist": { "type": "number", "default": 0.0 },
+                    "value": { "type": "integer" },
+                    "value_decimal": { "type": "number" },
                     "search_height": { "type": "integer", "default": 1 },
                     "search_range": { "type": "integer", "default": 0 },
                     "search_count": { "type": "integer", "default": 10, "description": "The number of blocks each tick that the mob will check within it's search range and height for a valid block to move to. A value of 0 will have the mob check every block within range in one tick" },
@@ -3461,6 +3631,7 @@
                     "y_dist": { "type": "integer", "default": 7, "minimum": 1, "description": "Distance in blocks that the mob will look up or down for a new spot to move to. Must be at least 1" },
                     "stop_distance": { "type": "number", "default": 2.0 },
                     "cooldown_time": { "type": "number", "default": 0.0, "description": "Time in seconds the mob has to wait before using the goal again" },
+                    "cooldown": { "type": "number", "default": 0.0 },
                     "within_radius": { "type": "number", "default": 0.0 },
                     "y_offset": { "type": "number", "default": 0.0, "description": "Height in blocks to add to the selected target position" },
                     "avoid_water": { "type": "boolean", "default": false, "description": "Tells the pathfinder to avoid water when creating a path" },
