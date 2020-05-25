@@ -5,7 +5,6 @@
     "definitions": {
         "Entity": {
             "type": "object",
-            "required": [ "format_version" ],
             "properties": {
                 "format_version": { "type": "string", "format": "number", "examples": [ "1.12", "1.13", "1.14", "1.15", "1.16" ] },
                 "minecraft:entity": { "$ref": "#/definitions/entity" },
@@ -14,7 +13,6 @@
             }
         },
         "entity": {
-            "required": [ "description" ],
             "title": "Entity",
             "type": "object",
             "properties": {
@@ -31,7 +29,6 @@
         },
         "animation_controller": {
             "title": "Animation Controller",
-            "required": [ "states" ],
             "type": "object",
             "properties": { "initial_state": { "type": "string" }, "states": { "$ref": "#/definitions/states" } }
         },
