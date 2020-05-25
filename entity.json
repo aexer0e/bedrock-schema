@@ -3097,7 +3097,10 @@
                         "type": "object"
                     },
                     "minecraft:environment_sensor": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                            "triggers": { "type": "array", "items": [ { "$ref": "#/definitions/library/components/values/trigger" } ] }
+                        }
                     },
                     "minecraft:entity_sensor": {
                         "type": "object"
