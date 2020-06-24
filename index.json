@@ -6,7 +6,7 @@
         "Entity": {
             "type": "object",
             "properties": {
-                "format_version": { "type": "string", "format": "number", "examples": [ "1.12", "1.13", "1.14", "1.15", "1.16" ] },
+                "format_version": { "type": ["string", "number"], "format": "number", "examples": [ "1.10", "1.11", "1.12", "1.13", "1.14", "1.15", "1.16", 1, 2 ] },
                 "minecraft:entity": { "$ref": "#/definitions/entity" },
                 "animation_controllers": { "$ref": "#/definitions/animation_controllers" },
                 "animations": { "$ref": "#/definitions/animations" }
@@ -3096,7 +3096,11 @@
                     "minecraft:environment_sensor": {
                         "type": "object",
                         "properties": {
-                            "triggers": { "type": "array", "items": [ { "$ref": "#/definitions/library/components/values/trigger" } ] }
+                            "triggers": {
+                                "type": ["array", "object"],
+                                "items": [ { "$ref": "#/definitions/library/components/values/trigger" } ],
+                                "$ref": "#/definitions/library/components/values/trigger"
+                            }
                         }
                     },
                     "minecraft:entity_sensor": {
