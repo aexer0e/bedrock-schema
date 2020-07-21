@@ -474,7 +474,7 @@
                             "minecraft:behavior.vex_copy_owner_target",
                             "minecraft:behavior.vex_random_move",
                             "minecraft:behavior.wither_random_attack_pos_goal",
-                            "minecraft:behavior.wither_target_highest_damage",                    
+                            "minecraft:behavior.wither_target_highest_damage",
                             "minecraft:addrider",
                             "minecraft:admire_item",
                             "minecraft:ageable",
@@ -3036,6 +3036,7 @@
                             },
                             "effect_duration": {
                                 "type": "number",
+                                "default": 0.0,
                                 "description": "Duration of the applied potion effect."
                             }
                         }
@@ -3064,6 +3065,7 @@
                         "properties": {
                             "should_darken_sky": {
                                 "type": "boolean",
+                                "default": false,
                                 "description": "Whether the sky should darken in the presence of the boss."
                             },
                             "name": {
@@ -3072,6 +3074,7 @@
                             },
                             "hud_range": {
                                 "type": "number",
+                                "default": 55,
                                 "description": "The max distance from the boss at which the boss's health bar is present on the players screen."
                             }
                         }
@@ -3109,10 +3112,12 @@
                         "properties": {
                             "width": {
                                 "type": "number",
+                                "default": 1.0,
                                 "description": "Width and Depth of the collision box in blocks. A negative value will be assumed to be 0."
                             },
                             "height": {
                                 "type": "number",
+                                "default": 1.0,
                                 "description": "Height of the collision box in blocks. A negative value will be assumed to be 0."
                             }
                         }
@@ -3173,8 +3178,7 @@
                                 "$ref": "#/definitions/filters"
                             },
                             "remove_child_entities": {
-                                "type": "boolean",
-                                "description": "If true, all entities linked to this entity in a child relationship (eg. leashed) will also be despawned."
+                                "$ref": "#/definitions/library/components/values/remove_child_entities"
                             },
                             "despawn_from_distance": {
                                 "type": "object",
@@ -3191,22 +3195,27 @@
                             },
                             "despawn_from_chance": {
                                 "type": "boolean",
+                                "default": true,
                                 "description": "Determines if \"min_range_random_chance\" is used in the standard despawn rules"
                             },
                             "despawn_from_inactivity": {
                                 "type": "boolean",
+                                "default": true,
                                 "description": "Determines if the \"min_range_inactivity_timer\" is used in the standard despawn rules."
                             },
                             "despawn_from_simulation_edge": {
                                 "type": "boolean",
+                                "default": true,
                                 "description": "Determines if the mob is instantly despawned at the edge of simulation distance in the standard despawn rules."
                             },
                             "min_range_inactivity_timer": {
                                 "type": "number",
+                                "default": 30,
                                 "description": "The amount of time in seconds that the mob must be inactive."
                             },
                             "min_range_random_chance": {
                                 "type": "number",
+                                "default": 800,
                                 "description": "A random chance between 1 and the given value."
                             }
                         }
@@ -3233,22 +3242,27 @@
                         "properties": {
                             "sensor_range": {
                                 "type": "number",
+                                "default": 10,
                                 "description": "The maximum distance another entity can be from this and have the filters checked against it."
                             },
                             "relative_range": {
                                 "type": "boolean",
+                                "default": true,
                                 "description": "If true the sensor range is additive on top of the entity's size."
                             },
                             "require_all": {
                                 "type": "boolean",
+                                "default": false,
                                 "description": "If true requires all nearby entities to pass the filter conditions for the event to send."
                             },
                             "minimum_count": {
                                 "type": "number",
+                                "default": 1,
                                 "description": "The minimum number of entities that must pass the filter conditions for the event to send."
                             },
                             "maximum_count": {
                                 "type": "number",
+                                "default": -1,
                                 "description": "The maximum number of entities that must pass the filter conditions for the event to send."
                             },
                             "event_filters": {
@@ -3328,6 +3342,7 @@
                             "filters": { "$ref": "#/definitions/filters" },
                             "force_use": {
                                 "type": "boolean",
+                                "default": false,
                                 "description": "Determines if item can be used regardless of entity being at full health."
                             },
                             "items": {
@@ -3349,17 +3364,7 @@
                         }
                     },
                     "minecraft:health": {
-                        "type": "object",
-                        "properties": {
-                            "value": {
-                                "type": "integer",
-                                "description": "The  amount of health an entity has"
-                            },
-                            "max": {
-                                "type": "integer",
-                                "description": "The maximum amount of health an entity can have"
-                            }
-                        }
+                        "$ref": "#/definitions/library/components/values/current_and_max"
                     },
                     "minecraft:hide": {
                         "type": "object"
@@ -3509,15 +3514,7 @@
                         "type": "object"
                     },
                     "minecraft:knockback_resistance": {
-                        "type": "object",
-                        "properties": {
-                            "value": {
-                                "type": "number"
-                            },
-                            "max": {
-                                "type": "number"
-                            }
-                        }
+                        "$ref": "#/definitions/library/components/values/current_and_max"
                     },
                     "minecraft:lava_movement": {
                         "type": "object"
@@ -3660,10 +3657,12 @@
                         "properties": {
                             "is_pushable": {
                                 "type": "boolean",
+                                "default": true,
                                 "description": "Whether the entity can be pushed by other entities."
                             },
                             "is_pushable_by_piston": {
                                 "type": "boolean",
+                                "default": true,
                                 "description": "Whether the entity can be pushed by pistons safely."
                             }
                         }
@@ -3757,10 +3756,12 @@
                         "properties": {
                             "looping": {
                                 "type": "boolean",
+                                "default": true,
                                 "description": "If true, the timer will restart every time after it fires."
                             },
                             "time": {
                                 "type": "array",
+                                "default": [0.0, 0.0],
                                 "description": "Amount of time in seconds for the timer. Can be specified as a number or a pair of numbers (min and max). Incompatible with random_time_choices.",
                                 "items": {
                                     "type": "number"
@@ -3768,10 +3769,12 @@
                             },
                             "randomInterval": {
                                 "type": "boolean",
+                                "default": true,
                                 "description": "If true, the amount of time on the timer will be random between the min and max values specified in time."
                             },
                             "random_time_choices": {
                                 "type": "array",
+                                "default": [],
                                 "description": "This is a list of objects, representing one value in seconds that can be picked before firing the event and an optional weight. Incompatible with time.",
                                 "items": {
                                     "type": "object",
@@ -3849,7 +3852,7 @@
                         "type": "object"
                     },
                     "minecraft:water_movement": {
-                        "type": "object" 
+                        "type": "object"
                     }
                 },
                 "values": {
@@ -3911,12 +3914,24 @@
                     "scan_interval" : { "type": "integer", "default": 10.0 },
                     "persist_time" : { "type": "number", "default": 3.0 },
                     "attack_interval" : { "type": "integer", "default": 0 },
+                    "remove_child_entities" : { "type": "boolean", "description": "If true, all entities linked to this entity in a child relationship (eg. leashed) will also be despawned.", "default": false },
                     "trigger": {
                         "type": "object",
                         "properties": {
                             "filters": { "$ref": "#/definitions/filters" },
                             "event" : { "type": "string" },
                             "target": { "type": "string", "examples": [ "other", "player", "self", "target", "baby", "block" ] }
+                        }
+                    },
+                    "current_and_max": {
+                        "type": "object",
+                        "properties": {
+                            "value": {
+                                "type": "number"
+                            },
+                            "max": {
+                                "type": "number"
+                            }
                         }
                     },
                     "entity_types": {
