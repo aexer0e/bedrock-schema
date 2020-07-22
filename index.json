@@ -171,6 +171,10 @@
                     "then": { "properties": { "value": { "type": "boolean" } } }
                 },
                 {
+                    "if": { "properties": { "test": { "$ref": "#/definitions/library/filters/tests/string" } } },
+                    "then": { "properties": { "value": { "type": "string" } } }
+                },
+                {
                     "if": { "properties": { "test": { "anyOf": [ { "const": "has_component" } ] } } },
                     "then": { "properties": { "value": { "type": "string", "$ref": "#/definitions/library/filters/values/components" } } }
                 },
@@ -304,6 +308,11 @@
                             { "const": "is_skin_id" },
                             { "const": "is_altitude" },
                             { "const": "rider_count" }
+                        ]
+                    },
+                    "string": {
+                        "anyOf": [
+                            { "const": "is_family" }
                         ]
                     }
                 },
@@ -3671,6 +3680,7 @@
                         "type": "object",
                         "properties": {
                             "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                        }
                     },
                     "minecraft:preferred_path": {
                         "type": "object"
@@ -3700,7 +3710,6 @@
                         "type": "object",
                         "properties": {
                             "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
-                        }
                         }
                     },
                     "minecraft:scale_by_age": {
