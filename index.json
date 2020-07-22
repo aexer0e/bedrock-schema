@@ -179,6 +179,10 @@
                     "then": { "properties": { "value": { "type": "string", "$ref": "#/definitions/library/filters/values/components" } } }
                 },
                 {
+                    "if": { "properties": { "test": { "anyOf": [ { "const": "is_difficulty" } ] } } },
+                    "then": { "properties": { "value": { "type": "string", "$ref": "#/definitions/library/difficulties" } } }
+                },
+                {
                     "if": { "properties": { "test": { "anyOf": [ { "const": "has_equipment" } ] } } },
                     "then": { "allOf": [
                         {"properties": { "domain": { "type": "string", "$ref": "#/definitions/library/filters/domains/has_equipment" } } },
@@ -349,6 +353,8 @@
                     },
                     "components": {
                         "enum": [
+                            "minecraft:annotation.break_door",
+                            "minecraft:annotation.open_door",
                             "minecraft:behavior.hide",
                             "minecraft:behavior.move_to_poi",
                             "minecraft:behavior.scared",
@@ -477,6 +483,7 @@
                             "minecraft:behavior.swim_with_entity",
                             "minecraft:behavior.swoop_attack",
                             "minecraft:behavior.take_flower",
+                            "minecraft:behavior.target_when_pushed",
                             "minecraft:behavior.tempt",
                             "minecraft:behavior.trade_interest",
                             "minecraft:behavior.trade_with_player",
@@ -2039,8 +2046,36 @@
                     "village_hero"
                 ]
             },
+            "difficulties": {
+                "enum": [
+                    "peaceful",
+                    "easy",
+                    "normal",
+                    "hard"
+                ]
+            },
             "components": {
                 "properties": {
+                    "minecraft:annotation.break_door": {
+                        "type": "object",
+                        "properties": {
+                            "break_time": {
+                                "type": "decimal",
+                                "default": 12.0,
+                                "description": "The time in seconds required to break through doors."
+                            },
+                            "min_difficulty": {
+                                "type": "string",
+                                "default": "hard",
+                                "$ref": "#/definitions/library/difficulties",
+                                "description": "The minimum difficulty that the world must be on for this entity to break doors."
+                            }
+                        },
+                        "description": "Allows the actor to break doors assuming that that flags set up for the component to use in navigation."
+                    },
+                    "minecraft:annotation.open_door": {
+                        "type": "object"
+                    },
                     "minecraft:behavior.hide": {
                         "type": "object",
                         "properties": {
@@ -2467,6 +2502,9 @@
                             "on_home": { "$ref": "#/definitions/library/components/values/trigger", "description": "Event to run when this mob gets home." },
                             "speed_multiplier": { "$ref": "#/definitions/library/components/values/speed_multiplier" }
                         }
+                    },
+                    "minecraft:behavior.guardian_attack": {
+                        "type": "object"
                     },
                     "minecraft:behavior.harvest_farm_block": {
                         "type": "object",
@@ -2987,6 +3025,9 @@
                         "type": "object"
                     },
                     "minecraft:behavior.swoop_attack": {
+                        "type": "object"
+                    },
+                    "minecraft:behavior.target_when_pushed": {
                         "type": "object"
                     },
                     "minecraft:behavior.take_flower": {
@@ -3607,6 +3648,9 @@
                         "type": "object"
                     },
                     "minecraft:navigation.walk": {
+                        "type": "object"
+                    },
+                    "minecraft:npc": {
                         "type": "object"
                     },
                     "minecraft:on_death": {
