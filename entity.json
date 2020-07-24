@@ -3581,10 +3581,7 @@
                         }
                     },
                     "minecraft:walk_animation_speed": {
-                        "type": "object",
-                        "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
-                        }
+                        "type": "object", "properties": { "value": { "$ref": "#/definitions/library/components/values/value_decimal", "description": "The higher the number, the faster the animation for walking plays. A value of 1.0 means normal speed, while 2.0 means twice as fast" } }
                     },
                     "minecraft:wants_jockey": {
                         "type": "object"
@@ -3652,14 +3649,7 @@
                     "scan_interval" : { "type": "integer", "default": 10.0 },
                     "persist_time" : { "type": "number", "default": 3.0 },
                     "attack_interval" : { "type": "integer", "default": 0 },
-                    "trigger": {
-                        "type": "object",
-                        "properties": {
-                            "filters": { "$ref": "#/definitions/filters" },
-                            "event" : { "type": "string" },
-                            "target": { "type": "string", "examples": [ "other", "player", "self", "target", "baby", "block" ] }
-                        }
-                    },
+                    "trigger": { "type": "object", "properties": { "filters": { "$ref": "#/definitions/filters" }, "event" : { "type": "string" }, "target": { "type": "string", "examples": [ "other", "player", "self", "target", "baby", "block" ] } } },
                     "entity_types": {
                         "properties": {
                             "filters": { "$ref": "#/definitions/filters", "description": "Conditions that make this entry in the list valid" },
