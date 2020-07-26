@@ -3460,7 +3460,7 @@
                         "type": "object",
                         "properties": {
                             "value": { "$ref": "#/definitions/library/components/values/value" },
-                            "max": { "type": "integer" }
+                            "max": { "type": "number" }
                         }
                     },
                     "minecraft:lava_movement": {
