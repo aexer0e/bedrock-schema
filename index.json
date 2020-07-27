@@ -3074,21 +3074,11 @@
                     },
                     "minecraft:attack": {
                         "type": "object",
+                        "description": "Defines an entity's melee attack and any additional effects on it.",
                         "properties": {
-                            "damage": {
-                                "type": "number",
-                                "description": "How much damage is applied to attacked entity."
-                            },
-                            "effect_name": {
-                                "type": "string",
-                                "$ref": "#/definitions/library/effects",
-                                "description": "Potion effect applied to attacked entity."
-                            },
-                            "effect_duration": {
-                                "type": "number",
-                                "default": 0.0,
-                                "description": "Duration of the applied potion effect."
-                            }
+                            "damage": { "type": ["number", "array"], "description": "Range of the random amount of damage the melee attack deals. A negative value can heal the entity instead of hurting it" },
+                            "effect_name": { "type": "string", "$ref": "#/definitions/library/effects", "description": "Identifier of the status ailment to apply to an entity attacked by this entity's melee attack" },
+                            "effect_duration": { "type": "number", "default": 0.0, "description": "Duration in seconds of the status ailment applied to the damaged entity" }
                         }
                     },
                     "minecraft:attack_cooldown": {
@@ -3113,19 +3103,9 @@
                         "type": "object",
                         "description": "The current state of the boss for updating the boss HUD.",
                         "properties": {
-                            "should_darken_sky": {
-                                "type": "boolean",
-                                "default": false,
-                                "description": "Whether the sky should darken in the presence of the boss."
-                            },
-                            "name": {
-                                "type": "string",
-                                "description": "The name that will be displayed above the boss's health bar."
-                            },
-                            "hud_range": {
-                                "type": "number",
-                                "default": 55,
-                                "description": "The max distance from the boss at which the boss's health bar is present on the players screen."
+                            "should_darken_sky": { "type": "boolean", "default": false, "description": "Whether the sky should darken in the presence of the boss." },
+                            "name": { "type": "string", "description": "The name that will be displayed above the boss's health bar." },
+                            "hud_range": { "type": "integer", "default": 55, "description": "The max distance from the boss at which the boss's health bar is present on the players screen."
                             }
                         }
                     },
@@ -3163,25 +3143,27 @@
                             "width": {
                                 "type": "number",
                                 "default": 1.0,
-                                "description": "Width and Depth of the collision box in blocks. A negative value will be assumed to be 0."
+                                "description": "Width and Depth of the collision box in blocks. A negative value will be assumed to be 0"
                             },
                             "height": {
                                 "type": "number",
                                 "default": 1.0,
-                                "description": "Height of the collision box in blocks. A negative value will be assumed to be 0."
+                                "description": "Height of the collision box in blocks. A negative value will be assumed to be 0"
                             }
                         }
                     },
                     "minecraft:color": {
                         "type": "object",
+                        "description": "Defines the entity's color. Only works on vanilla entities that have predefined color values (sheep, llama, shulker).",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value" }
+                            "value": { "$ref": "#/definitions/library/components/values/value", "description": "The second Palette Color value of the entity", "default": 0 }
                         }
                     },
                     "minecraft:color2": {
                         "type": "object",
+                        "description": "Defines the entity's second texture color. Only works on vanilla entities that have a second predefined color values (tropical fish).",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value" }
+                            "value": { "$ref": "#/definitions/library/components/values/value", "description": "The Palette Color value of the entity", "default": 0 }
                         }
                     },
                     "minecraft:custom_hit_test": {
@@ -3192,9 +3174,21 @@
                     },
                     "minecraft:damage_sensor": {
                         "type": "object",
+                        "description": "Defines what events to call when this entity is damaged by specific entities or items.",
                         "properties": {
                             "triggers": {
-                                "type": "array",
+                                "type": ["array", "object"],
+                                "properties": {
+                                    "cause": { "type": "string", "$ref": "#/definitions/library/filters/domains/has_damage", "default": "none", "description": "Type of damage that triggers the events." },
+                                    "damage_multiplier": {
+                                        "type": "number",
+                                        "default": 1.0,
+                                        "description": "A multiplier that modifies the base damage from the damage cause. If deals_damage is true the multiplier can only reduce the damage the entity will take to a minimum of 1."
+                                    },
+                                    "deals_damage": { "type": "boolean", "default": true, "description": "If true, the damage dealt to the entity will take away health from it, set to false to make the entity ignore that damage." },
+                                    "on_damage": { "$ref": "#/definitions/library/components/values/trigger", "filters": "Specifies filters for entity definitions and events." },
+                                    "on_damage_sound_event": { "type": "string", "description": "Defines what sound to play, if any, when the on_damage filters are met." }
+                                },
                                 "items": [
                                     {
                                         "properties": {
@@ -3215,59 +3209,29 @@
                     },
                     "minecraft:default_look_angle": {
                         "type": "object",
+                        "description": "Sets this entity's default head rotation angle.",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal", "default": 0.0, "description": "Angle in degrees" }
                         }
                     },
                     "minecraft:despawn": {
                         "type": "object",
                         "description": "Despawns the Actor when the despawn rules or optional filters evaluate to true.",
                         "properties": {
-                            "filters": {
-                                "description": "The list of conditions that must be satisfied before the Actor is despawned. If a filter is defined then standard despawn rules are ignored.",
-                                "$ref": "#/definitions/filters"
-                            },
-                            "remove_child_entities": {
-                                "$ref": "#/definitions/library/components/values/remove_child_entities"
-                            },
                             "despawn_from_distance": {
                                 "type": "object",
                                 "properties": {
-                                    "min_distance": {
-                                        "type": "number",
-                                        "description": "Maximum distance for standard despawn rules to instantly despawn the mob."
-                                    },
-                                    "max_distance": {
-                                        "type": "number",
-                                        "description": "Minimum distance for standard despawn rules to try to despawn the mob."
-                                    }
+                                    "min_distance": { "type": "number", "description": "Maximum distance for standard despawn rules to instantly despawn the mob.", "default": 32 },
+                                    "max_distance": { "type": "number", "description": "Minimum distance for standard despawn rules to try to despawn the mob.", "default": 128 }
                                 }
                             },
-                            "despawn_from_chance": {
-                                "type": "boolean",
-                                "default": true,
-                                "description": "Determines if \"min_range_random_chance\" is used in the standard despawn rules"
-                            },
-                            "despawn_from_inactivity": {
-                                "type": "boolean",
-                                "default": true,
-                                "description": "Determines if the \"min_range_inactivity_timer\" is used in the standard despawn rules."
-                            },
-                            "despawn_from_simulation_edge": {
-                                "type": "boolean",
-                                "default": true,
-                                "description": "Determines if the mob is instantly despawned at the edge of simulation distance in the standard despawn rules."
-                            },
-                            "min_range_inactivity_timer": {
-                                "type": "number",
-                                "default": 30,
-                                "description": "The amount of time in seconds that the mob must be inactive."
-                            },
-                            "min_range_random_chance": {
-                                "type": "number",
-                                "default": 800,
-                                "description": "A random chance between 1 and the given value."
-                            }
+                            "filters": { "description": "The list of conditions that must be satisfied before the Actor is despawned. If a filter is defined then standard despawn rules are ignored.", "$ref": "#/definitions/filters" },
+                            "despawn_from_chance": { "type": "boolean", "default": true, "description": "Determines if \"min_range_random_chance\" is used in the standard despawn rules" },
+                            "despawn_from_inactivity": { "type": "boolean", "default": true, "description": "Determines if the \"min_range_inactivity_timer\" is used in the standard despawn rules." },
+                            "despawn_from_simulation_edge": { "type": "boolean", "default": true, "description": "Determines if the mob is instantly despawned at the edge of simulation distance in the standard despawn rules." },
+                            "min_range_inactivity_timer": { "type": "number", "default": 30, "description": "The amount of time in seconds that the mob must be inactive." },
+                            "min_range_random_chance": { "type": "number", "default": 800, "description": "A random chance between 1 and the given value." },
+                            "remove_child_entities": { "$ref": "#/definitions/library/components/values/remove_child_entities", "default": false }
                         }
                     },
                     "minecraft:dweller": {
@@ -3277,6 +3241,7 @@
                         "type": "object"
                     },
                     "minecraft:environment_sensor": {
+                        "description": "The list of triggers that fire when the environment conditions match the given filter criteria.",
                         "type": "object",
                         "properties": {
                             "triggers": {
@@ -3290,37 +3255,13 @@
                         "type": "object",
                         "description": "A component that fires an event when a set of conditions are met by other entities within the defined range.",
                         "properties": {
-                            "sensor_range": {
-                                "type": "number",
-                                "default": 10,
-                                "description": "The maximum distance another entity can be from this and have the filters checked against it."
-                            },
-                            "relative_range": {
-                                "type": "boolean",
-                                "default": true,
-                                "description": "If true the sensor range is additive on top of the entity's size."
-                            },
-                            "require_all": {
-                                "type": "boolean",
-                                "default": false,
-                                "description": "If true requires all nearby entities to pass the filter conditions for the event to send."
-                            },
-                            "minimum_count": {
-                                "type": "number",
-                                "default": 1,
-                                "description": "The minimum number of entities that must pass the filter conditions for the event to send."
-                            },
-                            "maximum_count": {
-                                "type": "number",
-                                "default": -1,
-                                "description": "The maximum number of entities that must pass the filter conditions for the event to send."
-                            },
-                            "event_filters": {
-                                "$ref": "#/definitions/filters"
-                            },
-                            "event": {
-                                "type": "string"
-                            }
+                            "sensor_range": { "type": "number", "default": 10, "description": "The maximum distance another entity can be from this and have the filters checked against it." },
+                            "relative_range": { "type": "boolean", "default": true, "description": "If true the sensor range is additive on top of the entity's size." },
+                            "require_all": { "type": "boolean", "default": false, "description": "If true requires all nearby entities to pass the filter conditions for the event to send." },
+                            "minimum_count": { "type": "integer", "default": 1, "description": "The minimum number of entities that must pass the filter conditions for the event to send." },
+                            "maximum_count": { "type": "integer", "default": -1, "description": "The maximum number of entities that must pass the filter conditions for the event to send." },
+                            "event_filters": { "$ref": "#/definitions/filters" },
+                            "event": { "type": "string" }
                         }
                     },
                     "minecraft:equipment": {
@@ -3346,8 +3287,9 @@
                     },
                     "minecraft:flying_speed": {
                         "type": "object",
+                        "description": "Speed in Blocks that this entity flies at.",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal", "default": 0.002, "description": "Flying speed in blocks per tick" }
                         }
                     },
                     "minecraft:follow_range": {
@@ -3358,14 +3300,16 @@
                     },
                     "minecraft:foot_size": {
                         "type": "object",
+                        "description": "Sets the number of blocks the entity can step without jumping.",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal", "default": 0.5, "description": "The value of the size of the entity's step" }
                         }
                     },
                     "minecraft:friction_modifier": {
                         "type": "object",
+                        "description": "Defines how much does friction affect this entity.",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                            "value": {"$ref": "#/definitions/library/components/values/value_decimal", "default": 1.0, "description": "The higher the number, the more the friction affects this entity. A value of 1.0 means regular friction, while 2.0 means twice as much" }
                         }
                     },
                     "minecraft:genetics": {
@@ -3376,8 +3320,9 @@
                     },
                     "minecraft:ground_offset": {
                         "type": "object",
+                        "description": "Sets the offset from the ground that the entity is actually at.",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal", "default": 0.0, "description": "The value of the entity's offset from the terrain, in blocks" }
                         }
                     },
                     "minecraft:group_size": {
@@ -3388,6 +3333,7 @@
                     },
                     "minecraft:healable": {
                         "type": "object",
+                        "description": "Defines the interactions with this entity for healing it.",
                         "properties": {
                             "filters": { "$ref": "#/definitions/filters" },
                             "force_use": {
@@ -3400,21 +3346,19 @@
                                 "items": {
                                     "type": "object",
                                     "properties": {
-                                        "heal_amount": {
-                                            "type": "integer",
-                                            "description": "The amount of health this entity gains when fed this item."
-                                        },
-                                        "item": {
-                                            "type": "string",
-                                            "description": "Item identifier that can be used to heal this entity."
-                                        }
+                                        "heal_amount": { "type": "integer", "default": 1, "description": "The amount of health this entity gains when fed this item." },
+                                        "item": { "type": "string", "description": "Item identifier that can be used to heal this entity." }
                                     }
                                 }
                             }
                         }
                     },
                     "minecraft:health": {
-                        "$ref": "#/definitions/library/components/values/current_and_max"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value" },
+                            "max": { "type": "integer" }
+                        }
                     },
                     "minecraft:hide": {
                         "type": "object"
@@ -3503,8 +3447,7 @@
                                             }
                                         ]
                                     }
-                                },
-                                "additionalProperties": false
+                                }
                             }
                         ]
                     },
@@ -3563,7 +3506,11 @@
                         "type": "object"
                     },
                     "minecraft:knockback_resistance": {
-                        "$ref": "#/definitions/library/components/values/current_and_max"
+                        "type": "object",
+                        "properties": {
+                            "value": { "$ref": "#/definitions/library/components/values/value" },
+                            "max": { "type": "number" }
+                        }
                     },
                     "minecraft:lava_movement": {
                         "type": "object"
@@ -3582,8 +3529,9 @@
                     },
                     "minecraft:mark_variant": {
                         "type": "object",
+                        "description": "Additional variant value. Can be used to further differentiate variants.",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value" }
+                            "value": { "$ref": "#/definitions/library/components/values/value", "description": "The ID of the variant. By convention, 0 is the ID of the base entity", "default": 0 }
                         }
                     },
                     "minecraft:mob_effect": {
@@ -3615,8 +3563,9 @@
                     },
                     "minecraft:skin_id": {
                         "type": "object",
+                        "description": "Skin ID value. Can be used to differentiate skins, such as base skins for villagers.",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value" }
+                            "value": { "$ref": "#/definitions/library/components/values/value", "default": 0, "description": "The ID of the skin. By convention, 0 is the ID of the base skin" }
                         }
                     },
                     "minecraft:movement.skip": {
@@ -3721,9 +3670,9 @@
                     },
                     "minecraft:push_through": {
                         "type": "object",
+                        "description": "Sets the distance through which the entity can push through.",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
-                        }
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal", "default": 0.002, "description": "The value of the entity's push-through, in blocks" }
                     },
                     "minecraft:preferred_path": {
                         "type": "object"
@@ -3751,8 +3700,13 @@
                     },
                     "minecraft:scale": {
                         "type": "object",
+                        "description": "Sets the entity's visual size.",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                            "value": {
+                                "$ref": "#/definitions/library/components/values/value_decimal",
+                                "description": "The value of the scale. 1.0 means the entity will appear at the scale they are defined in their model. Higher numbers make the entity bigger",
+                                "default": 1.0
+                            }
                         }
                     },
                     "minecraft:scale_by_age": {
@@ -3772,8 +3726,9 @@
                     },
                     "minecraft:sound_volume": {
                         "type": "object",
+                        "description": "Sets the entity's base volume for sound effects.",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal", "default": 1.0, "description": "The value of the volume the entity uses for sound effects" }
                         }
                     },
                     "minecraft:spawn_entity": {
@@ -3784,8 +3739,10 @@
                     },
                     "minecraft:strength": {
                         "type": "object",
+                        "description": "Defines the entity's strength to carry items.",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value" }
+                            "value": { "$ref": "#/definitions/library/components/values/value", "description": "The initial value of the strength", "default": 1 },
+                            "max": { "type": "integer", "description": "The maximum strength of this entity", "default": 5 }
                         }
                     },
                     "minecraft:tameable": {
@@ -3805,52 +3762,17 @@
                     },
                     "minecraft:timer": {
                         "type": "object",
+                        "description": "Adds a timer after which an event will fire.",
                         "properties": {
-                            "looping": {
-                                "type": "boolean",
-                                "default": true,
-                                "description": "If true, the timer will restart every time after it fires."
-                            },
-                            "time": {
-                                "type": "array",
-                                "default": [0.0, 0.0],
-                                "description": "Amount of time in seconds for the timer. Can be specified as a number or a pair of numbers (min and max). Incompatible with random_time_choices.",
-                                "items": {
-                                    "type": "number"
-                                }
-                            },
-                            "randomInterval": {
-                                "type": "boolean",
-                                "default": true,
-                                "description": "If true, the amount of time on the timer will be random between the min and max values specified in time."
-                            },
+                            "looping": { "type": "boolean", "default": true, "description": "If true, the timer will restart every time after it fires." },
+                            "time": { "type": ["array", "number"], "default": 0, "description": "Amount of time in seconds for the timer. Can be specified as a number or a pair of numbers (min and max). Incompatible with random_time_choices.", "items": { "type": "number" } },
+                            "randomInterval": { "type": "boolean", "default": true, "description": "If true, the amount of time on the timer will be random between the min and max values specified in time." },
+                            "time_down_event": { "description": "Event to fire when the time on the timer runs out.", "$ref": "#/definitions/library/components/values/trigger" },
                             "random_time_choices": {
                                 "type": "array",
                                 "default": [],
                                 "description": "This is a list of objects, representing one value in seconds that can be picked before firing the event and an optional weight. Incompatible with time.",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "weight": {
-                                            "type": "number"
-                                        },
-                                        "value": {
-                                            "type": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "time_down_event": {
-                                "type": "object",
-                                "description": "Event to fire when the time on the timer runs out.",
-                                "properties": {
-                                    "event": {
-                                        "type": "string"
-                                    },
-                                    "target": {
-                                        "type": "string"
-                                    }
-                                }
+                                "items": { "type": "object", "properties": { "weight": { "type": "number" }, "value": { "type": "number" } } }
                             }
                         }
                     },
@@ -3876,28 +3798,22 @@
                         "type": "object",
                         "description": "Defines the families this entity belongs to.",
                         "properties": {
-                            "family": {
-                                "type": "array",
-                                "description": "List of family names.",
-                                "items": {
-                                    "type": "string"
-                                }
-                            }
+                            "family": { "type": "array", "description": "List of family names", "items": { "type": "string" } }
                         }
                     },
-                    "minecraft:underwater_movement": {
-                        "type": "object"
-                    },
+                    "minecraft:underwater_movement": { "type": "object" },
                     "minecraft:variant": {
                         "type": "object",
+                        "description": "Used to differentiate the component group of a variant of an entity from others (e.g. ocelot, villager)",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value" }
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal", "description": "The ID of the variant. By convention, 0 is the ID of the base entity" }
                         }
                     },
                     "minecraft:walk_animation_speed": {
                         "type": "object",
+                        "description": "Sets the speed multiplier for this entity's walk animation speed.",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal", "default": 1.0, "description": "The higher the number, the faster the animation for walking plays. A value of 1.0 means normal speed, while 2.0 means twice as fast" }
                         }
                     },
                     "minecraft:wants_jockey": {
@@ -3967,25 +3883,7 @@
                     "persist_time" : { "type": "number", "default": 3.0 },
                     "attack_interval" : { "type": "integer", "default": 0 },
                     "remove_child_entities" : { "type": "boolean", "description": "If true, all entities linked to this entity in a child relationship (eg. leashed) will also be despawned.", "default": false },
-                    "trigger": {
-                        "type": "object",
-                        "properties": {
-                            "filters": { "$ref": "#/definitions/filters" },
-                            "event" : { "type": "string" },
-                            "target": { "type": "string", "examples": [ "other", "player", "self", "target", "baby", "block" ] }
-                        }
-                    },
-                    "current_and_max": {
-                        "type": "object",
-                        "properties": {
-                            "value": {
-                                "type": "number"
-                            },
-                            "max": {
-                                "type": "number"
-                            }
-                        }
-                    },
+                    "trigger": { "type": "object", "properties": { "filters": { "$ref": "#/definitions/filters" }, "event" : { "type": "string" }, "target": { "type": "string", "examples": [ "other", "player", "self", "target", "baby", "block" ] } } },
                     "entity_types": {
                         "properties": {
                             "filters": { "$ref": "#/definitions/filters", "description": "Conditions that make this entry in the list valid" },
