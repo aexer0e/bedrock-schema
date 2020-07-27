@@ -3469,7 +3469,6 @@
                             },
                             {
                                 "properties": {
-                                    "type": "object",
                                     "interactions": {
                                         "type": "array",
                                         "items": [
