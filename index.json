@@ -3673,6 +3673,7 @@
                         "description": "Sets the distance through which the entity can push through.",
                         "properties": {
                             "value": { "$ref": "#/definitions/library/components/values/value_decimal", "default": 0.002, "description": "The value of the entity's push-through, in blocks" }
+                         }
                     },
                     "minecraft:preferred_path": {
                         "type": "object"
