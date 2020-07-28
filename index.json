@@ -3459,8 +3459,7 @@
                     "minecraft:knockback_resistance": {
                         "type": "object",
                         "properties": {
-                            "value": { "$ref": "#/definitions/library/components/values/value" },
-                            "max": { "type": "number" }
+                            "value": { "$ref": "#/definitions/library/components/values/value_decimal" }
                         }
                     },
                     "minecraft:lava_movement": {
