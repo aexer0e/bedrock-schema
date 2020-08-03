@@ -3622,10 +3622,14 @@
                         "type": "object"
                     },
                     "minecraft:on_target_acquired": {
-                        "type": "object"
+                        "type": "object",
+                        "description": "Adds a trigger to call when this entity finds a target.",
+                        "$ref": "#/definitions/library/components/values/trigger"
                     },
                     "minecraft:on_target_escape": {
-                        "type": "object"
+                        "type": "object",
+                        "description": "Adds a trigger to call when this entity loses the target it currently has.",
+                        "$ref": "#/definitions/library/components/values/trigger"
                     },
                     "minecraft:on_wake_with_owner": {
                         "type": "object"
@@ -3798,7 +3802,7 @@
                         "type": "object",
                         "description": "Defines the families this entity belongs to.",
                         "properties": {
-                            "family": { "type": "array", "description": "List of family names", "items": { "type": "string" } }
+                            "family": { "type": ["array", "string"], "description": "List of family names", "items": { "type": "string" } }
                         }
                     },
                     "minecraft:underwater_movement": { "type": "object" },
@@ -3883,7 +3887,13 @@
                     "persist_time" : { "type": "number", "default": 3.0 },
                     "attack_interval" : { "type": "integer", "default": 0 },
                     "remove_child_entities" : { "type": "boolean", "description": "If true, all entities linked to this entity in a child relationship (eg. leashed) will also be despawned.", "default": false },
-                    "trigger": { "type": "object", "properties": { "filters": { "$ref": "#/definitions/filters" }, "event" : { "type": "string" }, "target": { "type": "string", "examples": [ "other", "player", "self", "target", "baby", "block" ] } } },
+                    "trigger": {
+                        "type": "object",
+                        "properties": {
+                            "filters": { "$ref": "#/definitions/filters", "description": "The list of conditions for this trigger" },
+                            "event" : { "type": "string", "description": "The event to run when the conditions for this trigger are met" }, "target": { "type": "string","examples": [ "other", "player", "self", "target", "baby", "block"], "description": "The target of the event" }
+                            }
+                        },
                     "entity_types": {
                         "properties": {
                             "filters": { "$ref": "#/definitions/filters", "description": "Conditions that make this entry in the list valid" },
