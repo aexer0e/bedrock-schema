@@ -2930,38 +2930,38 @@
                         "description": "Allows an entity to attack by using ranged shots. \"charge_shoot_trigger\" must be greater than 0 to enable charged up burst-shot attacks.",
                         "properties": {
                             "attack_interval": {
-                                "type": "boolean",
+                                "type": "number",
                                 "default": 0,
                                 "description": "Alternative to \"attack_interval_min\" & \"attack_interval_max\". Consistent reload-time (in seconds), when not using a charged shot. Does not scale with target-distance."
                             },
                             "attack_interval_max": {
-                                "type": "boolean",
+                                "type": "number",
                                 "default": 0,
                                 "description": "Maximum bound for reload-time range (in seconds), when not using a charged shot. Reload-time range scales with target-distance."
                             },
                             "attack_interval_min": {
-                                "type": "boolean",
+                                "type": "number",
                                 "default": 0,
                                 "description": "Minimum bound for reload-time range (in seconds), when not using a charged shot. Reload-time range scales with target-distance."
                             },
-                            "attack_radius": {"type": "boolean", "default": 0, "description": "Minimum distance to target before this entity will attempt to shoot."},
-                            "burst_interval": {"type": "boolean", "default": 0, "description": "Time (in seconds) between each individual shot when firing a burst of shots from a charged up attack."},
-                            "burst_shots": {"type": "boolean", "default": 1, "description": "Number of shots fired every time the attacking entity uses a charged up attack."},
+                            "attack_radius": {"type": "number", "default": 0, "description": "Minimum distance to target before this entity will attempt to shoot."},
+                            "burst_interval": {"type": "number", "default": 0, "description": "Time (in seconds) between each individual shot when firing a burst of shots from a charged up attack."},
+                            "burst_shots": {"type": "integer", "default": 1, "description": "Number of shots fired every time the attacking entity uses a charged up attack."},
                             "charge_charged_trigger": {
-                                "type": "boolean",
+                                "type": "number",
                                 "default": 0,
                                 "description": "Time (in seconds, then add \"charge_shoot_trigger\"), before a charged up attack is done charging. Charge-time decays while target is not in sight."
                             },
                             "charge_shoot_trigger": {
-                                "type": "boolean",
+                                "type": "number",
                                 "default": 0,
                                 "description": "Amount of time (in seconds, then doubled) a charged shot must be charging before reloading burst shots. Charge-time decays while target is not in sight."
                             },
-                            "ranged_fov": {"type": "boolean", "default": 90, "description": "Field of view (in degrees) when using sensing to detect a target for attack."},
-                            "speed_multiplier": {"type": "boolean", "default": 1, "description": "During attack behavior, this multiplier modifies the entity's speed when moving toward the target."},
-                            "target_in_sight_time": {"type": "boolean", "default": 1, "description": "Minimum amount of time (in seconds) the attacking entity needs to see the target before moving toward it."},
-                            "x_max_rotation": {"type": "boolean", "default": 30, "description": "Maximum rotation (in degrees), on the X-axis, this entity can rotate while trying to look at the target."},
-                            "y_max_head_rotation": {"type": "boolean", "default": 30, "description": "Maximum rotation (in degrees), on the Y-axis, this entity can rotate its head while trying to look at the target."}
+                            "ranged_fov": {"type": "number", "default": 90, "description": "Field of view (in degrees) when using sensing to detect a target for attack."},
+                            "speed_multiplier": {"type": "number", "default": 1, "description": "During attack behavior, this multiplier modifies the entity's speed when moving toward the target."},
+                            "target_in_sight_time": {"type": "number", "default": 1, "description": "Minimum amount of time (in seconds) the attacking entity needs to see the target before moving toward it."},
+                            "x_max_rotation": {"type": "number", "default": 30, "description": "Maximum rotation (in degrees), on the X-axis, this entity can rotate while trying to look at the target."},
+                            "y_max_head_rotation": {"type": "number", "default": 30, "description": "Maximum rotation (in degrees), on the Y-axis, this entity can rotate its head while trying to look at the target."}
                         }
                     },
                     "minecraft:behavior.receive_love": {
