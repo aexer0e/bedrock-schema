@@ -9,7 +9,8 @@
                 "format_version": { "type": ["string", "number"], "format": "number", "examples": [ "1.10", "1.11", "1.12", "1.13", "1.14", "1.15", "1.16", 1, 2 ] },
                 "minecraft:entity": { "$ref": "#/definitions/entity" },
                 "animation_controllers": { "$ref": "#/definitions/animation_controllers" },
-                "animations": { "$ref": "#/definitions/animations" }
+                "animations": { "$ref": "#/definitions/animations" },
+                "tiers": { "$ref": "#/definitions/tiers" }
             }
         },
         "entity": {
@@ -63,6 +64,59 @@
             "type": "object",
             "patternProperties": { "^[+-]?([0-9]*[.])?[0-9]*$": { "type": [ "array", "string"], "format": "string" } },
             "additionalProperties": false
+        },
+        "tiers": {
+            "title": "Tiers",
+            "type": "array",
+            "items": { "$ref": "#/definitions/tier" }
+        },
+        "tier": {
+            "title": "Tier",
+            "type": "object",
+            "properties": {
+                "total_exp_required": { "type": "integer" },
+                "trades": { "$ref": "#/definitions/trade" }
+            }
+        },
+        "trade": {
+            "title": "Trade",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "wants": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "item": { "type": "string", "$ref": "#/definitions/library/items/examples" },
+                                "quantity": { "type": "integer" },
+                                "price_multiplier": { "type": "number" }
+                            }
+                        }
+                    },
+                    "gives": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "item": { "type": "string", "$ref": "#/definitions/library/items" },
+                                "quantity": { "type": "integer" },
+                                "funtions": { "$ref": "#/definitions/item_funtions" }
+                            }
+                        }
+                    },
+                    "trader_exp": { "type": "integer" },
+                    "max_uses": { "type": "integer" },
+                    "reward_exp": { "type": "boolean" }
+                }
+            }
+        },
+        "item_funtions": {
+            "type": "object",
+            "properties": {
+                "function": { "$ref": "#/definitions/library/trade_table_functions/functions" }
+            }
         },
         "description": {
             "title": "Description",
@@ -3953,6 +4007,34 @@
                             "walk_speed_multiplier" : { "type": "number", "default": 1.0, "description": "Multiplier for the walking speed. A value of 1.0 means the speed is unchanged" }
                         }
                     }
+                }
+            },
+            "trade_table_functions": {
+                "functions": {
+                    "examples": [
+                        "enchant_with_levels",
+                        "enchant_randomly",
+                        "enchant_random_gear",
+                        "specific_enchants",
+                        "set_damage",
+                        "set_data",
+                        "set_book_contents",
+                        "fill_container",
+                        "set_count",
+                        "looting_enchant",
+                        "furnace_smelt",
+                        "minecraft:set_data_from_color_index",
+                        "set_banner_details",
+                        "exploration_map",
+                        "enchant_book_for_trading",
+                        "random_block_state",
+                        "random_aux_value",
+                        "set_lore",
+                        "set_name",
+                        "set_actor_id",
+                        "random_dye",
+                        "trader_material_type"
+                    ]
                 }
             }
         }
