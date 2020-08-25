@@ -89,7 +89,7 @@
                         "items": {
                             "type": "object",
                             "properties": {
-                                "item": { "type": "string", "$ref": "#/definitions/library/items/examples" },
+                                "item": { "type": "string", "$ref": "#/definitions/library/items" },
                                 "quantity": { "type": "integer" },
                                 "price_multiplier": { "type": "number" }
                             }
